@@ -9,7 +9,7 @@ public class Conexion {
     private static Connection conexion;
     
     public Conexion(){
-        this.url = "jdbc:mariadb://localhost:3306/universidad";
+        this.url = "jdbc:mariadb://localhost:3306/massalud";
         this.usuario = "root";
         this.clave = "";
     }
