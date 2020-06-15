@@ -42,7 +42,7 @@ CREATE TABLE `massalud`.`afiliados` (
 
 CREATE TABLE `massalud`.`especialidades` (
   `id` int(11) NOT NULL,
-  `nombre` int(11) NOT NULL
+  `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -71,7 +71,8 @@ CREATE TABLE `massalud`.`ordenes` (
   `idHorario` int(11) NOT NULL,
   `fechaAtencion` date NOT NULL,
   `fechaCreacion` date NOT NULL,
-  `activa` tinyint(4) NOT NULL DEFAULT 1
+  `efectivo` tinyint(1) NOT NULL,
+  `activa` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
