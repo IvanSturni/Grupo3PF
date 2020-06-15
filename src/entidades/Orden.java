@@ -3,7 +3,7 @@ package entidades;
 import java.time.LocalDate;
 
 public class Orden {
-    private int id;
+    private int id = -1;
     private Afiliado afiliado;
     private Horario horario;
     private boolean efectivo;
@@ -86,10 +86,8 @@ public class Orden {
         this.activa = activa;
     }
     
-    
     @Override
     public String toString(){
         return "[" + fechaAtencion.toString() + "] " + horario.toString();
     }
-
 }

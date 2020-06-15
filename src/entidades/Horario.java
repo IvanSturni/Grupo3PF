@@ -1,11 +1,9 @@
 package entidades;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 
 public class Horario {
-    private int id;
+    private int id = -1;
     private Prestador prestador;
     private DayOfWeek dia;
     private LocalTime horaInicio;
@@ -70,7 +68,4 @@ public class Horario {
     public String toString(){
         return horaInicio.toString() + " - " + horaFin.toString();
     }
-    
-    
-    
 }
