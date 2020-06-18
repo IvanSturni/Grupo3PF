@@ -1,10 +1,10 @@
 package entidades;
 
 public class Afiliado {
-    int id = -1;
-    int dni;
-    String nombre;
-    boolean activo;
+    private int id = -1;
+    private int dni;
+    private String nombre;
+    private boolean activo;
     
     public Afiliado(int id, int dni, String nombre, boolean activo){
         this.id = id;

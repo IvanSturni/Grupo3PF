@@ -1,8 +1,8 @@
 package entidades;
 
 public class Especialidad {
-    int id = -1;
-    String nombre;
+    private int id = -1;
+    private String nombre;
     
     public Especialidad(int id, String nombre){
         this.id = id;

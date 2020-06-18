@@ -83,6 +83,7 @@ CREATE TABLE `massalud`.`ordenes` (
 
 CREATE TABLE `massalud`.`prestadores` (
   `id` int(11) NOT NULL,
+  `dni` int(8) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `idEspecialidad` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
@@ -125,6 +126,7 @@ ALTER TABLE `massalud`.`ordenes`
 --
 ALTER TABLE `massalud`.`prestadores`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `dni` (`dni`),
   ADD KEY `idEspecialidad` (`idEspecialidad`);
 
 --
@@ -150,14 +152,24 @@ ALTER TABLE `massalud`.`ordenes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `prestadores`
+--
+ALTER TABLE `massalud`.`prestadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `massalud`.`horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `especialidades`
+-- Restricciones para tablas volcadas
 --
-ALTER TABLE `massalud`.`especialidades`
-  ADD CONSTRAINT `especialidades_ibfk_1` FOREIGN KEY (`id`) REFERENCES `prestadores` (`idEspecialidad`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `horarios`
@@ -171,6 +183,12 @@ ALTER TABLE `massalud`.`horarios`
 ALTER TABLE `massalud`.`ordenes`
   ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`idAfiliado`) REFERENCES `afiliados` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `ordenes_ibfk_3` FOREIGN KEY (`idHorario`) REFERENCES `horarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `prestadores`
+--
+ALTER TABLE `massalud`.`prestadores`
+  ADD CONSTRAINT `prestadores_ibfk_1` FOREIGN KEY (`idEspecialidad`) REFERENCES `especialidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

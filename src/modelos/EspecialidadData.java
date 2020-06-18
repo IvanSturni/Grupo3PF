@@ -8,7 +8,7 @@ public class EspecialidadData {
     
     public Especialidad altaEspecialidad(Especialidad especialidad){
         try {
-            String sql = "INSERT INTO especialidades SET 'nombre' = '" + especialidad.getNombre() + "';";
+            String sql = "INSERT INTO especialidades SET nombre = '" + especialidad.getNombre() + "';";
             Statement s = Conexion.get().createStatement();
             s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = s.getGeneratedKeys();
@@ -25,7 +25,7 @@ public class EspecialidadData {
     public Especialidad obtenerEspecialidad(int id){
         Especialidad especialidad = null;
         try {
-            String sql = "SELECT * FROM especialidad WHERE id = " + id + ";";
+            String sql = "SELECT * FROM especialidades WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
             
@@ -39,10 +39,28 @@ public class EspecialidadData {
         return especialidad;
     }
     
+    public ArrayList<Especialidad> obtenerEspecialidades(){
+        ArrayList<Especialidad> resultados = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT * FROM especialidades";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            while (rs.next()){
+                resultados.add(new Especialidad(rs.getInt("id"), rs.getString("nombre")));
+            }
+            s.close();
+        } catch (SQLException e){
+            System.out.println("Error al obtener especialidades:" + e.getMessage());
+        }
+        
+        return resultados;
+    }
     
     public void bajaEspecialidad(int id){
         try {
-            String sql = "DELETE FROM especialidad WHERE id = " + id + ";";
+            String sql = "DELETE FROM especialidades WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             s.executeQuery(sql);
             
@@ -54,7 +72,7 @@ public class EspecialidadData {
     
     public void actualizarEspecialidad(int id, Afiliado afiliado){
         try {
-            String sql = "UPDATE especialidad SET  nombre = '" + afiliado.getNombre()+ "' WHERE id = " + id + ";";
+            String sql = "UPDATE especialidades SET  nombre = '" + afiliado.getNombre()+ "' WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             s.execute(sql);
             

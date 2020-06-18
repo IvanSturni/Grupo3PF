@@ -7,7 +7,8 @@ public class PrestadorData {
     
     public Prestador altaPrestador(Prestador prestador){
          try {
-            String sql = "INSERT INTO prestador (dni, nombre, especialidad, activo) VALUES ('" + prestador.getDni() + "', '" + prestador.getNombre() + "', " + prestador.getEspecialidad() + "', " + (prestador.isActivo() ? "1" : "0") + ");";
+            String sql = "INSERT INTO prestadores (dni, nombre, idEspecialidad, activo) VALUES (" + prestador.getDni() + ", '" + prestador.getNombre() + "', " + prestador.getEspecialidad().getId() + ", " + (prestador.isActivo() ? "1" : "0") + ");";
+             System.out.println(sql);
             Statement s = Conexion.get().createStatement();
             s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = s.getGeneratedKeys();
@@ -25,7 +26,7 @@ public class PrestadorData {
         Prestador prestador = null;
         EspecialidadData em = new EspecialidadData();
         try {
-            String sql = "SELECT * FROM prestador WHERE id = " + id + ";";
+            String sql = "SELECT * FROM prestadores WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
             
@@ -44,7 +45,7 @@ public class PrestadorData {
         EspecialidadData em = new EspecialidadData();
         
         try {
-            String sql = "SELECT * FROM prestador";
+            String sql = "SELECT * FROM prestadores";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
             
@@ -61,7 +62,7 @@ public class PrestadorData {
     
     public void bajaPrestador(int id){
         try {
-            String sql = "DELETE FROM prestador WHERE id = " + id + ";";
+            String sql = "DELETE FROM prestadores WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             s.executeQuery(sql);
             
@@ -73,7 +74,7 @@ public class PrestadorData {
     
     public void actualizarPrestador(int id, Prestador prestador){
         try {
-            String sql = "UPDATE prestador SET dni = '" + prestador.getDni() + "', nombre = '" + prestador.getNombre() + "', activo = " + prestador.getEspecialidad() + "', " + (prestador.isActivo() ? "1" : "0") + " WHERE id = " + id + ";";
+            String sql = "UPDATE prestadores SET dni = " + prestador.getDni() + ", nombre = '" + prestador.getNombre() + "', idEspecialidad = " + prestador.getEspecialidad().getId() + ", activo = " + (prestador.isActivo() ? "1" : "0") + " WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             s.execute(sql);
             
