@@ -14,13 +14,13 @@ public class Grupo3PF {
     private static final PrestadorData pd = new PrestadorData();
     private static final OrdenData od = new OrdenData();
     private static final EspecialidadData ed = new EspecialidadData();
-    
+
     public static void main(String[] args) {
         crearDatosPrueba();
     }
-    
-    private static void crearDatosPrueba(){
-        Afiliado a1 = ad.altaAfiliado(new Afiliado(41293222, "Jose", true));
+
+    private static void crearDatosPrueba() {
+        /*Afiliado a1 = ad.altaAfiliado(new Afiliado(41293222, "Jose", true));
         Afiliado a2 = ad.altaAfiliado(new Afiliado(57134993, "Cristina", true));
         Afiliado a3 = ad.altaAfiliado(new Afiliado(36542388, "Raul", true));
         Afiliado a4 = ad.altaAfiliado(new Afiliado(19334367, "María", true));
@@ -59,6 +59,8 @@ public class Grupo3PF {
         Horario h7 = hd.altaHorario(new Horario(p5, DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
         Horario h8 = hd.altaHorario(new Horario(p5, DayOfWeek.WEDNESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
         Horario h9 = hd.altaHorario(new Horario(p9, DayOfWeek.WEDNESDAY, LocalTime.of(9, 30), LocalTime.of(18, 00)));
+         */
+        
     }
-    
+
 }

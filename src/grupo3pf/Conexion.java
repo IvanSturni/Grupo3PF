@@ -2,16 +2,13 @@ package grupo3pf;
 import java.sql.*;
 
 public class Conexion {
-    private static String url;
-    private static String usuario;
-    private static String clave;
+    private static String url = "jdbc:mariadb://localhost:3306/massalud";
+    private static String usuario = "root";
+    private static String clave = "";
 
     private static Connection conexion;
     
     public Conexion(){
-        this.url = "jdbc:mariadb://localhost:3306/massalud";
-        this.usuario = "root";
-        this.clave = "";
     }
     
     public Conexion(String url, String usuario, String password){
