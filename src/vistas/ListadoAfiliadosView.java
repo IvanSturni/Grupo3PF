@@ -5,16 +5,23 @@
  */
 package vistas;
 
+import entidades.Afiliado;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import modelos.AfiliadoData;
+
 /**
  *
  * @author Eourist
  */
 public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements View{
+    AfiliadoData ad;
 
     /**
      * Creates new form ListadoAfiliadosView
      */
     public ListadoAfiliadosView() {
+        ad = new AfiliadoData();
         initComponents();
     }
 
@@ -27,27 +34,210 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtId = new javax.swing.JTextField();
+        jtDni = new javax.swing.JTextField();
+        jtNombre = new javax.swing.JTextField();
+        btBuscar = new javax.swing.JButton();
+        btGuardar = new javax.swing.JButton();
+        btEliminar = new javax.swing.JButton();
+        btModificar = new javax.swing.JButton();
+        jcActivo = new javax.swing.JCheckBox();
+        btVerOrdenes = new javax.swing.JButton();
+
         setClosable(true);
-        setTitle("Listado de afiliados");
+        setTitle("Administracion de afiliados");
+
+        jLabel1.setText("ID");
+
+        jLabel2.setText("DNI");
+
+        jLabel3.setText("NOMBRE");
+
+        jLabel4.setText("ACTIVO");
+
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+
+        btBuscar.setText("Buscar");
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
+
+        btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
+
+        btEliminar.setText("Eliminar");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarActionPerformed(evt);
+            }
+        });
+
+        btModificar.setText("Modificar");
+        btModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarActionPerformed(evt);
+            }
+        });
+
+        btVerOrdenes.setText("Ver ordenes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                    .addComponent(jtDni)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel1))
+                                    .addGap(93, 93, 93)
+                                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(btGuardar)
+                                    .addGap(58, 58, 58)
+                                    .addComponent(btEliminar))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btBuscar)
+                            .addComponent(btModificar)
+                            .addComponent(btVerOrdenes))
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jcActivo)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btBuscar))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btVerOrdenes))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jcActivo))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btGuardar)
+                    .addComponent(btEliminar)
+                    .addComponent(btModificar))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreActionPerformed
+
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+       
+       //Afiliado a;
+       int dni = Integer.parseInt(jtDni.getText());
+       String nombre = jtNombre.getText();
+       boolean activo = jcActivo.isEnabled();
+       Afiliado afiliado = new Afiliado(dni, nombre, activo);
+       ad.altaAfiliado(afiliado);
+       limpiar();
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
+        int id = Integer.parseInt(jtId.getText());
+        ad.bajaAfiliado(id);
+        limpiar();
+    }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
+        if(jtId.getText() != null){
+            int id = Integer.parseInt(jtId.getText());
+            int dni = Integer.parseInt(jtDni.getText());
+            String nombre = jtNombre.getText();
+            boolean activo = jcActivo.isEnabled();
+            Afiliado afiliado = new Afiliado(dni, nombre, activo);
+            ad.actualizarAfiliado(id, afiliado);
+            limpiar();
+            
+        }
+    }//GEN-LAST:event_btModificarActionPerformed
+
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+        int id = Integer.parseInt(jtId.getText());
+        Afiliado afiliado = ad.obtenerAfiliado(id);
+        if(afiliado!=null){
+            
+            jtId.setText(afiliado.getId()+"");
+            jtDni.setText(afiliado.getDni()+ "");
+            jtNombre.setText(afiliado.getNombre());
+            jcActivo.setSelected(afiliado.isActivo());
+        }
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+     public void limpiar(){
+        jtDni.setText("");
+        jtId.setText("");
+        jtNombre.setText("");
+        jcActivo.setEnabled(false);
+        
+    }
+    
     @Override
     public void actualizarValores(){
         System.out.println("Se actualizo la vista de Listado de afiliados");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btEliminar;
+    private javax.swing.JButton btGuardar;
+    private javax.swing.JButton btModificar;
+    private javax.swing.JButton btVerOrdenes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JCheckBox jcActivo;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtId;
+    private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }
