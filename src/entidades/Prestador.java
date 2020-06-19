@@ -64,6 +64,6 @@ public class Prestador {
     
     @Override
     public String toString(){
-        return "(" + dni + ") " + nombre;
+        return nombre;
     }
 }

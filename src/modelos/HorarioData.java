@@ -14,7 +14,6 @@ public class HorarioData {
                     horario.getDia().getValue() + ", '" + 
                     horario.getHoraInicio() + "', '" + 
                     horario.getHoraFin() + "');";
-            System.out.println(sql);
             Statement s = Conexion.get().createStatement();
             s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = s.getGeneratedKeys();
