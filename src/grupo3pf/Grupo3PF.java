@@ -16,10 +16,11 @@ public class Grupo3PF {
     private static final EspecialidadData ed = new EspecialidadData();
 
     public static void main(String[] args) {
-        //crearDatosPrueba();
+        crearDatosPrueba();
     }
 
     private static void crearDatosPrueba() {
+        
         Afiliado a1 = ad.altaAfiliado(new Afiliado(41293222, "Jose", true));
         Afiliado a2 = ad.altaAfiliado(new Afiliado(57134993, "Cristina", true));
         Afiliado a3 = ad.altaAfiliado(new Afiliado(36542388, "Raul", true));
@@ -59,6 +60,16 @@ public class Grupo3PF {
         Horario h7 = hd.altaHorario(new Horario(p5, DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
         Horario h8 = hd.altaHorario(new Horario(p5, DayOfWeek.WEDNESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
         Horario h9 = hd.altaHorario(new Horario(p9, DayOfWeek.WEDNESDAY, LocalTime.of(9, 30), LocalTime.of(18, 00)));
+        
+        Orden o1 = od.altaOrden(new Orden(a1,h1,LocalDate.of(2020, Month.MARCH, 3), LocalDate.of(2020, Month.MARCH, 1),true,false));
+        Orden o2 = od.altaOrden(new Orden(a2,h1,LocalDate.of(2020, Month.MARCH, 4), LocalDate.of(2020, Month.MARCH, 3),true,true));
+        Orden o3 = od.altaOrden(new Orden(a3,h1,LocalDate.of(2020, Month.MARCH, 20), LocalDate.of(2020, Month.MARCH, 17),false,true));
+        Orden o4 = od.altaOrden(new Orden(a4,h1,LocalDate.of(2020, Month.JULY, 3), LocalDate.of(2020, Month.JULY, 2),true,false));
+        Orden o5 = od.altaOrden(new Orden(a5,h3,LocalDate.of(2020, Month.AUGUST, 18), LocalDate.of(2020, Month.AUGUST, 5),true,true));
+        Orden o6 = od.altaOrden(new Orden(a6,h3,LocalDate.of(2020, Month.AUGUST, 18), LocalDate.of(2020, Month.AUGUST, 6),false,true));
+        Orden o7 = od.altaOrden(new Orden(a7,h4,LocalDate.of(2020, Month.DECEMBER, 12), LocalDate.of(2020, Month.DECEMBER, 5),false,true));
+        Orden o8 = od.altaOrden(new Orden(a8,h5,LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 2),true,true));
+        Orden o9 = od.altaOrden(new Orden(a9,h6,LocalDate.of(2020, Month.APRIL, 22), LocalDate.of(2020, Month.APRIL, 22),true,false));
     }
 
 }

@@ -6,27 +6,27 @@ public class Orden {
     private int id = -1;
     private Afiliado afiliado;
     private Horario horario;
-    private boolean efectivo;
     private LocalDate fechaAtencion;
     private LocalDate fechaCreacion;
+    private boolean efectivo;
     private boolean activa;
 
-    public Orden(int id, Afiliado afiliado, Horario horario, boolean efectivo, LocalDate fechaAtencion, LocalDate fechaCreacion, boolean activa) {
+    public Orden(int id, Afiliado afiliado, Horario horario, LocalDate fechaAtencion, LocalDate fechaCreacion, boolean efectivo, boolean activa) {
         this.id = id;
         this.afiliado = afiliado;
         this.horario = horario;
-        this.efectivo = efectivo;
         this.fechaAtencion = fechaAtencion;
         this.fechaCreacion = fechaCreacion;
+        this.efectivo = efectivo;
         this.activa = activa;
     }
 
-    public Orden(Afiliado afiliado, Horario horario, boolean efectivo, LocalDate fechaAtencion, LocalDate fechaCreacion, boolean activa) {
+    public Orden(Afiliado afiliado, Horario horario, LocalDate fechaAtencion, LocalDate fechaCreacion, boolean efectivo, boolean activa) {
         this.afiliado = afiliado;
         this.horario = horario;
-        this.efectivo = efectivo;
         this.fechaAtencion = fechaAtencion;
         this.fechaCreacion = fechaCreacion;
+        this.efectivo = efectivo;
         this.activa = activa;
     }
 
