@@ -64,6 +64,23 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
 
         setClosable(true);
         setTitle("Administracion de horarios");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jTableHorarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -404,6 +421,16 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         if (!Character.isDigit(evt.getKeyChar()) || ((JTextField)evt.getSource()).getText().length() >= 2)
             evt.consume();
     }//GEN-LAST:event_validarCamposHora
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        int indPre = jComboBoxPrestadores.getSelectedIndex();
+        Prestador objPre = (Prestador)jComboBoxPrestadores.getSelectedItem();
+        llenarDesplegablePrestadores();
+        if (jComboBoxPrestadores.getItemAt(indPre).equals(objPre))
+            jComboBoxPrestadores.setSelectedIndex(indPre);
+        
+        llenarTabla((Prestador)jComboBoxPrestadores.getSelectedItem(), jComboBoxDias.getSelectedIndex());
+    }//GEN-LAST:event_formInternalFrameActivated
     
     private void llenarTabla(Prestador p, int dia){
         for (int i = tableModel.getRowCount(); i > 0; i--){
@@ -463,7 +490,7 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
     private void llenarDesplegablePrestadores(){
         ArrayList<Prestador> prestadores = new ArrayList<>();
         PrestadorData pd = new PrestadorData();
-        prestadores = pd.obtenerPrestadores();
+        prestadores = pd.obtenerPrestadores(true);
         
         Prestador placeholder = new Prestador(0000000, "Todos seleccionados", new Especialidad("NULL"), true);
         jComboBoxPrestadores.addItem(placeholder);

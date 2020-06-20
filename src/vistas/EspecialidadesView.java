@@ -43,6 +43,23 @@ public class EspecialidadesView extends javax.swing.JInternalFrame implements Vi
 
         setClosable(true);
         setTitle("Administracion de especialidades");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jCheckBoxEdicion.setText("Modificar especialidad existente:");
         jCheckBoxEdicion.addItemListener(new java.awt.event.ItemListener() {
@@ -180,6 +197,14 @@ public class EspecialidadesView extends javax.swing.JInternalFrame implements Vi
             }
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        int ind = jComboBoxEspecialidades.getSelectedIndex();
+        Especialidad obj = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
+        llenarDesplegableEspecialidades();
+        if (jComboBoxEspecialidades.getItemAt(ind).equals(obj))
+            jComboBoxEspecialidades.setSelectedIndex(ind);
+    }//GEN-LAST:event_formInternalFrameActivated
     
     private void llenarDesplegableEspecialidades(){
         EspecialidadData ed = new EspecialidadData();

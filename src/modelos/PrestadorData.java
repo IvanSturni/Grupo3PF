@@ -6,8 +6,12 @@ import java.util.*;
 public class PrestadorData {
     
     public Prestador altaPrestador(Prestador prestador){
-         try {
-            String sql = "INSERT INTO prestadores (dni, nombre, idEspecialidad, activo) VALUES (" + prestador.getDni() + ", '" + prestador.getNombre() + "', " + prestador.getEspecialidad().getId() + ", " + (prestador.isActivo() ? "1" : "0") + ");";
+        try {
+            String sql;
+            if(prestador.getEspecialidad() != null)
+                sql = "INSERT INTO prestadores (dni, nombre, idEspecialidad, activo) VALUES (" + prestador.getDni() + ", '" + prestador.getNombre() + "', " + prestador.getEspecialidad().getId() + ", " + (prestador.isActivo() ? "1" : "0") + ");";
+            else
+                sql ="INSERT INTO prestadores (dni, nombre, activo) VALUES (" + prestador.getDni() + ", '" + prestador.getNombre() + "', " + (prestador.isActivo() ? "1" : "0") + ");";
             Statement s = Conexion.get().createStatement();
             s.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = s.getGeneratedKeys();
@@ -30,7 +34,8 @@ public class PrestadorData {
             ResultSet rs = s.executeQuery(sql);
             
             while(rs.next()){
-                prestador = new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")), rs.getBoolean("activo"));
+                Especialidad e = (rs.getInt("idEspecialidad") > 0) ? (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")) : null;
+                prestador = new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), e, rs.getBoolean("activo"));
             }      
             s.close();
         } catch (SQLException e) {
@@ -38,6 +43,7 @@ public class PrestadorData {
         }
         return prestador;
     }
+    
     public Prestador obtenerPrestadorDNI(int dni){
         Prestador prestador = null;
         EspecialidadData em = new EspecialidadData();
@@ -47,7 +53,8 @@ public class PrestadorData {
             ResultSet rs = s.executeQuery(sql);
             
             while(rs.next()){
-                prestador = new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")), rs.getBoolean("activo"));
+                Especialidad e = (rs.getInt("idEspecialidad") > 0) ? (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")) : null;
+                prestador = new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), e, rs.getBoolean("activo"));
             }      
             s.close();
         } catch (SQLException e) {
@@ -56,12 +63,37 @@ public class PrestadorData {
         return prestador;
     }
     
-    public ArrayList<Prestador> obtenerPrestadores(){
+    public ArrayList<Prestador> obtenerPrestadores(boolean mostrarDeshabilitados){
         ArrayList<Prestador> resultados = new ArrayList<>();
         EspecialidadData em = new EspecialidadData();
         
         try {
-            String sql = "SELECT * FROM prestadores";
+            String sql = "SELECT * FROM prestadores WHERE activo = " + (mostrarDeshabilitados ? "0 OR 1" : "1") + ";";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            while (rs.next()){
+                Especialidad e = (rs.getInt("idEspecialidad") > 0) ? (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")) : null;
+                resultados.add(new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), e, rs.getBoolean("activo")));
+            }
+            s.close();
+        } catch (SQLException e){
+            System.out.println("Error al obtener prestadores:" + e.getMessage());
+        }
+        
+        return resultados;
+    }
+    
+    public ArrayList<Prestador> obtenerPrestadoresEspecialidad(Especialidad especialidad, boolean mostrarDeshabilitados){
+        ArrayList<Prestador> resultados = new ArrayList<>();
+        EspecialidadData em = new EspecialidadData();
+        
+        try {
+            String sql;
+            if (mostrarDeshabilitados)
+                sql = "SELECT * FROM prestadores WHERE idEspecialidad = " + especialidad.getId();
+            else
+                sql = "SELECT * FROM prestadores WHERE idEspecialidad = " + especialidad.getId() + " AND activo = 1";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
             
@@ -90,7 +122,11 @@ public class PrestadorData {
     
     public void actualizarPrestador(int id, Prestador prestador){
         try {
-            String sql = "UPDATE prestadores SET dni = " + prestador.getDni() + ", nombre = '" + prestador.getNombre() + "', idEspecialidad = " + prestador.getEspecialidad().getId() + ", activo = " + (prestador.isActivo() ? "1" : "0") + " WHERE id = " + id + ";";
+            String sql;
+            if (prestador.getEspecialidad() != null)
+                sql = "UPDATE prestadores SET dni = " + prestador.getDni() + ", nombre = '" + prestador.getNombre() + "', idEspecialidad = " + prestador.getEspecialidad().getId() + ", activo = " + (prestador.isActivo() ? "1" : "0") + " WHERE id = " + id + ";";
+            else
+                sql = "UPDATE prestadores SET dni = " + prestador.getDni() + ", nombre = '" + prestador.getNombre() + "', idEspecialidad = NULL, activo = " + (prestador.isActivo() ? "1" : "0") + " WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             //s.execute(sql);
             s.executeUpdate(sql);

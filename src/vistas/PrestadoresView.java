@@ -52,6 +52,23 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
 
         setClosable(true);
         setTitle("Administracion de prestadores");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jComboBoxPrestadores.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -314,6 +331,20 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
             jTextFieldDNIBusqueda.setText(texto);
         }
     }//GEN-LAST:event_jTextFieldDNIBusquedaKeyReleased
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        int indEsp = jComboBoxEspecialidades.getSelectedIndex();
+        Especialidad objEsp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
+        llenarDesplegableEspecialidades();
+        if (jComboBoxEspecialidades.getItemAt(indEsp).equals(objEsp))
+            jComboBoxEspecialidades.setSelectedIndex(indEsp);
+        
+        int indPre = jComboBoxPrestadores.getSelectedIndex();
+        Prestador objPre = (Prestador)jComboBoxPrestadores.getSelectedItem();
+        llenarDesplegablePrestadores();
+        if (jComboBoxPrestadores.getItemAt(indPre).equals(objPre))
+            jComboBoxPrestadores.setSelectedIndex(indPre);
+    }//GEN-LAST:event_formInternalFrameActivated
     
     
     private void llenarDatosPrestador(Prestador p){
@@ -334,7 +365,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
             }
         }
         
-        if (((Especialidad)jComboBoxEspecialidades.getSelectedItem()).getId() != p.getEspecialidad().getId()){
+        if (p.getEspecialidad() != null && ((Especialidad)jComboBoxEspecialidades.getSelectedItem()).getId() != p.getEspecialidad().getId()){
             for (int i = 0; i < jComboBoxEspecialidades.getItemCount(); i++){
                 if (jComboBoxEspecialidades.getItemAt(i).getId() == p.getEspecialidad().getId()){
                     jComboBoxEspecialidades.setSelectedIndex(i);
@@ -372,7 +403,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
     private void llenarDesplegablePrestadores(){
         ArrayList<Prestador> prestadores = new ArrayList<>();
         PrestadorData pd = new PrestadorData();
-        prestadores = pd.obtenerPrestadores();
+        prestadores = pd.obtenerPrestadores(true);
         
         Prestador placeholder = new Prestador(0000000, "Ninguno seleccionado", new Especialidad("NULL"), true);
         jComboBoxPrestadores.addItem(placeholder);

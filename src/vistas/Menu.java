@@ -185,6 +185,7 @@ public class Menu extends javax.swing.JFrame {
                 System.out.println("Error al actualizar la vista: " + e.getMessage());
             }
         }*/
+        jDesktopPane.remove(ventana);
         jDesktopPane.repaint();
         jDesktopPane.add(ventana);
         ventana.setVisible(true);
