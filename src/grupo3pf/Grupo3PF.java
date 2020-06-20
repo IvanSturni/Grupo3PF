@@ -16,7 +16,7 @@ public class Grupo3PF {
     private static final EspecialidadData ed = new EspecialidadData();
 
     public static void main(String[] args) {
-        crearDatosPrueba();
+        //crearDatosPrueba();
     }
 
     private static void crearDatosPrueba() {
