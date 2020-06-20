@@ -48,6 +48,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jTextFieldDNIBusqueda = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Administracion de prestadores");
@@ -58,7 +59,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
             }
         });
 
-        jLabel1.setText("Seleccionar/buscar:");
+        jLabel1.setText("Buscar por DNI:");
 
         jLabelTipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTipo.setText("Creación/Edición");
@@ -101,27 +102,28 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         });
 
         jTextFieldDNIBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDNIBusquedaKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDNIBusquedaKeyTyped(evt);
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Seleccionar prestador a modificar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDNIBusqueda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPrestadores, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButtonHorarios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonDeshabilitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -129,8 +131,8 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
                         .addComponent(jButtonEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonGuardar))
-                    .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jLabelTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -145,13 +147,21 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldDNIFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldDNIBusqueda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxPrestadores, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxPrestadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -177,8 +187,8 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,9 +209,11 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
 
     private void jTextFieldDNIBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDNIBusquedaKeyTyped
         String dni = jTextFieldDNIBusqueda.getText() + evt.getKeyChar();
+        boolean dniInvalido = false;
         
-        if (!Character.isDigit(evt.getKeyChar()) || dni.length() > 8)
+        if (!Character.isDigit(evt.getKeyChar()) || dni.length() > 8){
             evt.consume();
+        }
         else if (dni.length() == 8){
             PrestadorData pd = new PrestadorData();
             Prestador p = pd.obtenerPrestadorDNI(Integer.parseInt(dni));
@@ -209,8 +221,16 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
                 llenarDatosPrestador(p);
                 evt.consume();
             } else {
-                System.out.println("No se encontro un prestador con ese DNI");
+                dniInvalido = true;
             }
+        } else {
+            dniInvalido = true;
+        }
+        
+        if (dniInvalido && jComboBoxPrestadores.getSelectedIndex() != 0){
+            String texto = jTextFieldDNIBusqueda.getText();
+            jComboBoxPrestadores.setSelectedIndex(0);
+            jTextFieldDNIBusqueda.setText(texto);
         }
     }//GEN-LAST:event_jTextFieldDNIBusquedaKeyTyped
 
@@ -218,23 +238,25 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         PrestadorData pd = new PrestadorData();
         Prestador p;
         if (prestadorSeleccionado){
-            if (jTextFieldDNIFormulario.getText().length() == 8 && !jTextFieldNombre.getText().equals("")){
+            if (jTextFieldDNIFormulario.getText().length() == 8 && !jTextFieldNombre.getText().equals("") && jComboBoxEspecialidades.getSelectedIndex() != 0){
                 p = (Prestador)jComboBoxPrestadores.getSelectedItem();
                 p.setDni(Integer.valueOf(jTextFieldDNIFormulario.getText()));
                 p.setNombre(jTextFieldNombre.getText());
                 p.setEspecialidad((Especialidad)jComboBoxEspecialidades.getSelectedItem());
+                
                 pd.actualizarPrestador(p.getId(), p);
                 jLabelMensaje.setText("Prestador editado correctamente");
+                jLabelTipo.setText("Edición del prestador: " + p.getNombre());
             } else {
                 jLabelMensaje.setText("Error al editar: datos del formulario incompletos");
             }
         } else {
-            if (jTextFieldDNIFormulario.getText().length() == 8 && !jTextFieldNombre.getText().equals("")){
+            if (jTextFieldDNIFormulario.getText().length() == 8 && !jTextFieldNombre.getText().equals("") && jComboBoxEspecialidades.getSelectedIndex() != 0){
                 p = new Prestador(
                     Integer.valueOf(jTextFieldDNIFormulario.getText()), 
                     jTextFieldNombre.getText(), 
                     (Especialidad)jComboBoxEspecialidades.getSelectedItem(), true);
-            
+                
                 pd.altaPrestador(p);
                 jLabelMensaje.setText("Prestador creado correctamente");
                 jComboBoxPrestadores.addItem(p);
@@ -250,6 +272,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
             PrestadorData pd = new PrestadorData();
             Prestador p = (Prestador)jComboBoxPrestadores.getSelectedItem();
             pd.bajaPrestador(p.getId());
+            jComboBoxPrestadores.removeItem(p);
             jLabelMensaje.setText("Prestador eliminado correctamente");
             vaciarDatosPrestador();
         } else {
@@ -283,6 +306,14 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         if (!Character.isDigit(evt.getKeyChar()) || dni.length() > 8)
             evt.consume();
     }//GEN-LAST:event_jTextFieldDNIFormularioKeyTyped
+
+    private void jTextFieldDNIBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDNIBusquedaKeyReleased
+        if (evt.getKeyCode() == 8 && jComboBoxPrestadores.getSelectedIndex() != 0){
+            String texto = jTextFieldDNIBusqueda.getText();
+            jComboBoxPrestadores.setSelectedIndex(0);
+            jTextFieldDNIBusqueda.setText(texto);
+        }
+    }//GEN-LAST:event_jTextFieldDNIBusquedaKeyReleased
     
     
     private void llenarDatosPrestador(Prestador p){
@@ -343,7 +374,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         PrestadorData pd = new PrestadorData();
         prestadores = pd.obtenerPrestadores();
         
-        Prestador placeholder = new Prestador(0000000, "Seleccionar prestador", new Especialidad("NULL"), false);
+        Prestador placeholder = new Prestador(0000000, "Ninguno seleccionado", new Especialidad("NULL"), true);
         jComboBoxPrestadores.addItem(placeholder);
         jComboBoxPrestadores.setSelectedItem(placeholder);
         for (Prestador p : prestadores){
@@ -376,6 +407,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
     private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
     private javax.swing.JComboBox<Prestador> jComboBoxPrestadores;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

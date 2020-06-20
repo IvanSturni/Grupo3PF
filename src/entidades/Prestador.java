@@ -64,6 +64,6 @@ public class Prestador {
     
     @Override
     public String toString(){
-        return nombre;
+        return (activo ? "" : "[x] ") + nombre;
     }
 }
