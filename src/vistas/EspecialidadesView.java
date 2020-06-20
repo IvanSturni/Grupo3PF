@@ -5,17 +5,22 @@
  */
 package vistas;
 
+import entidades.Especialidad;
+import java.util.ArrayList;
+import modelos.EspecialidadData;
+
 /**
  *
  * @author Eourist
  */
 public class EspecialidadesView extends javax.swing.JInternalFrame implements View{
-
     /**
      * Creates new form EspecialidadesView
      */
     public EspecialidadesView() {
         initComponents();
+        llenarDesplegableEspecialidades();
+        jComboBoxEspecialidades.setEnabled(false);
     }
 
     /**
@@ -27,27 +32,179 @@ public class EspecialidadesView extends javax.swing.JInternalFrame implements Vi
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCheckBoxEdicion = new javax.swing.JCheckBox();
+        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jButtonGuardar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
+        jLabelMensaje = new javax.swing.JLabel();
+
         setClosable(true);
         setTitle("Administracion de especialidades");
+
+        jCheckBoxEdicion.setText("Modificar especialidad existente:");
+        jCheckBoxEdicion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxEdicionItemStateChanged(evt);
+            }
+        });
+
+        jComboBoxEspecialidades.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxEspecialidadesItemStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Nombre:");
+
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabelMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCheckBoxEdicion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxEspecialidades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxEdicion)
+                    .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBoxEdicionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxEdicionItemStateChanged
+        jComboBoxEspecialidades.setEnabled(!jComboBoxEspecialidades.isEnabled());
+        if (!jComboBoxEspecialidades.isEnabled())
+            jComboBoxEspecialidades.setSelectedIndex(0);
+    }//GEN-LAST:event_jCheckBoxEdicionItemStateChanged
+
+    private void jComboBoxEspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesItemStateChanged
+        if (jComboBoxEspecialidades.getSelectedIndex() == 0 || !jComboBoxEspecialidades.isEnabled())
+            jTextFieldNombre.setText("");
+        else
+            jTextFieldNombre.setText(((Especialidad)jComboBoxEspecialidades.getSelectedItem()).getNombre());
+    }//GEN-LAST:event_jComboBoxEspecialidadesItemStateChanged
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        Especialidad seleccionada = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
+        if (seleccionada.getId() == -1){
+            jLabelMensaje.setText("Error al eliminar: ninguna especialidad seleccionada");
+        } else {
+            EspecialidadData ed = new EspecialidadData();
+            ed.bajaEspecialidad(seleccionada.getId());
+            jLabelMensaje.setText("Especialidad eliminada correctamente");
+            jComboBoxEspecialidades.removeItem(jComboBoxEspecialidades.getSelectedItem());
+            jComboBoxEspecialidades.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        Especialidad seleccionada = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
+        EspecialidadData ed = new EspecialidadData();
+        String nombre = jTextFieldNombre.getText();
+            
+        if (!jCheckBoxEdicion.isSelected()){
+            // Alta
+            if (nombre.equals("")){
+                jLabelMensaje.setText("Error al crear: nombre inválido");
+            } else {
+                Especialidad e = new Especialidad(nombre);
+                ed.altaEspecialidad(e);
+                jLabelMensaje.setText("Especialidad creada correctamente");
+                jComboBoxEspecialidades.addItem(e);
+                jComboBoxEspecialidades.setSelectedItem(e);
+                jCheckBoxEdicion.setSelected(true);
+                jTextFieldNombre.setText(e.getNombre());
+            }
+        } else {
+            // Modificación
+            if (seleccionada.getId() == -1){
+                jLabelMensaje.setText("Error al modificar: ninguna especialidad seleccionada");
+            } else if (nombre.equals(seleccionada.getNombre())){
+                jLabelMensaje.setText("Error al modificar: no se encontraron cambios");
+            } else if (nombre.equals("")) {
+                jLabelMensaje.setText("Error al modificar: nombre inválido");
+            } else {
+                seleccionada.setNombre(nombre);
+                ed.actualizarEspecialidad(seleccionada.getId(), seleccionada);
+                jLabelMensaje.setText("Especialidad modificada correctamente");
+            }
+        }
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    
+    private void llenarDesplegableEspecialidades(){
+        EspecialidadData ed = new EspecialidadData();
+        ArrayList<Especialidad> especialidades = ed.obtenerEspecialidades();
+        
+        Especialidad placeholder = new Especialidad("Seleccionar especialidad");
+        jComboBoxEspecialidades.addItem(placeholder);
+        jComboBoxEspecialidades.setSelectedItem(placeholder);
+        for (Especialidad e : especialidades){
+            jComboBoxEspecialidades.addItem(e);
+        }
+    }
+    
     @Override
     public void actualizarValores(){
         System.out.println("Se actualizo la vista de Especialidades");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JCheckBox jCheckBoxEdicion;
+    private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelMensaje;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

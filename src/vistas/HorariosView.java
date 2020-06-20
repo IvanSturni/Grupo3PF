@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import modelos.PrestadorData;
 import java.time.*;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 /**
  *
  * @author Eourist
@@ -114,6 +115,20 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         jLabelEdicion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelEdicion.setText("Cargar nuevo horario");
 
+        jTextFieldHoraDesde.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldHoraDesde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validarCamposHora(evt);
+            }
+        });
+
+        jTextFieldHoraHasta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldHoraHasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validarCamposHora(evt);
+            }
+        });
+
         jLabel4.setText("Hora inicio:");
 
         jLabel5.setText("Hora final:");
@@ -127,7 +142,21 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
 
         jLabel3.setText(":");
 
+        jTextFieldMinutosDesde.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldMinutosDesde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validarCamposHora(evt);
+            }
+        });
+
         jLabel6.setText(":");
+
+        jTextFieldMinutosHasta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldMinutosHasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                validarCamposHora(evt);
+            }
+        });
 
         jButtonEliminar.setText("Eliminar horarios seleccionados");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -219,7 +248,7 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
                     .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,30 +312,32 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
     }//GEN-LAST:event_jTextFieldDNIKeyReleased
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        PrestadorData pd = new PrestadorData();
+        HorarioData hd = new HorarioData();
+        
+        Prestador p = (Prestador)jComboBoxPrestadores.getSelectedItem();
+        int dia = jComboBoxDias.getSelectedIndex();
+        
+        LocalTime desde, hasta;
         try {
-            PrestadorData pd = new PrestadorData();
-            HorarioData hd = new HorarioData();
-            Prestador p = (Prestador)jComboBoxPrestadores.getSelectedItem();
-            int dia = jComboBoxDias.getSelectedIndex();
-            
             int horaDesde = Integer.valueOf(jTextFieldHoraDesde.getText());
             int minutosDesde = Integer.valueOf(jTextFieldMinutosDesde.getText());
             int horaHasta = Integer.valueOf(jTextFieldHoraHasta.getText());
             int minutosHasta = Integer.valueOf(jTextFieldMinutosHasta.getText());
             
-            LocalTime desde = LocalTime.of(horaDesde, minutosDesde);
-            LocalTime hasta = LocalTime.of(horaHasta, minutosHasta);
-            
-            ArrayList<Horario> existentes = hd.obtenerHorariosDiaPrestador(dia, p.getId());
-            if (existentes.size() >= 2){
-                jLabelMensaje.setText("Error al crear: el prestador ya tiene demasiados horarios el mismo dia");
-            } else {
-                Horario h = hd.altaHorario(new Horario(pd.obtenerPrestador(p.getId()), DayOfWeek.of(dia), desde, hasta));
-                jLabelMensaje.setText("Horario creado correctamente");
-                llenarTabla(p, dia);
-            }
+            desde = LocalTime.of(horaDesde, minutosDesde);
+            hasta = LocalTime.of(horaHasta, minutosHasta);
         } catch (NumberFormatException e){
-            System.out.println("Error - Se ingreso un caracter inválido como hora/minuto");
+            jLabelMensaje.setText("Error al crear: caracter incorrecto o faltante");
+            return;
+        }
+        
+        if (tablaMostrada.size() >= 2){
+            jLabelMensaje.setText("Error al crear: el prestador ya tiene demasiados horarios el mismo dia");
+        } else {
+            Horario h = hd.altaHorario(new Horario(pd.obtenerPrestador(p.getId()), DayOfWeek.of(dia), desde, hasta));
+            jLabelMensaje.setText("Horario creado correctamente");
+            llenarTabla(p, dia);
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -368,6 +399,11 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
                 break;
         }
     }//GEN-LAST:event_jButtonGuardarTablaActionPerformed
+
+    private void validarCamposHora(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarCamposHora
+        if (!Character.isDigit(evt.getKeyChar()) || ((JTextField)evt.getSource()).getText().length() >= 2)
+            evt.consume();
+    }//GEN-LAST:event_validarCamposHora
     
     private void llenarTabla(Prestador p, int dia){
         for (int i = tableModel.getRowCount(); i > 0; i--){

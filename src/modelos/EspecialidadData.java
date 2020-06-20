@@ -70,9 +70,9 @@ public class EspecialidadData {
         }
     }
     
-    public void actualizarEspecialidad(int id, Afiliado afiliado){
+    public void actualizarEspecialidad(int id, Especialidad especialidad){
         try {
-            String sql = "UPDATE especialidades SET  nombre = '" + afiliado.getNombre()+ "' WHERE id = " + id + ";";
+            String sql = "UPDATE especialidades SET  nombre = '" + especialidad.getNombre()+ "' WHERE id = " + id + ";";
             Statement s = Conexion.get().createStatement();
             s.execute(sql);
             
