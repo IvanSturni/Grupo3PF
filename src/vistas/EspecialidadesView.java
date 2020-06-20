@@ -199,17 +199,18 @@ public class EspecialidadesView extends javax.swing.JInternalFrame implements Vi
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        int ind = jComboBoxEspecialidades.getSelectedIndex();
+        /*int ind = jComboBoxEspecialidades.getSelectedIndex();
         Especialidad obj = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
         llenarDesplegableEspecialidades();
         if (jComboBoxEspecialidades.getItemAt(ind).equals(obj))
-            jComboBoxEspecialidades.setSelectedIndex(ind);
+            jComboBoxEspecialidades.setSelectedIndex(ind);*/
     }//GEN-LAST:event_formInternalFrameActivated
     
     private void llenarDesplegableEspecialidades(){
         EspecialidadData ed = new EspecialidadData();
         ArrayList<Especialidad> especialidades = ed.obtenerEspecialidades();
         
+        jComboBoxEspecialidades.removeAllItems();
         Especialidad placeholder = new Especialidad("Seleccionar especialidad");
         jComboBoxEspecialidades.addItem(placeholder);
         jComboBoxEspecialidades.setSelectedItem(placeholder);

@@ -26,17 +26,6 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        Conexion con = new Conexion();
-        
-        vAfiliados = new AfiliadosView();
-        vEspecialidades = new EspecialidadesView();
-        vHorarios = new HorariosView();
-        vOrdenes = new OrdenesView();
-        vPrestadores = new PrestadoresView();
-
-        vListadoAfiliados = new ListadoAfiliadosView();
-        vListadoOrdenes = new ListadoOrdenesView();
-        vListadoPrestadores = new ListadoPrestadoresView();
     }
 
     /**
@@ -177,49 +166,49 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mostrarVentana(Component ventana){
-        /*for (JInternalFrame vista : jDesktopPane.getAllFrames()){
-            try {
-                View v = (View)vista;
-                v.actualizarValores();
-            } catch (ClassCastException e){
-                System.out.println("Error al actualizar la vista: " + e.getMessage());
-            }
-        }*/
-        jDesktopPane.remove(ventana);
+        jDesktopPane.removeAll();
         jDesktopPane.repaint();
         jDesktopPane.add(ventana);
         ventana.setVisible(true);
     }
     
     private void jMenuItemNuevaOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaOrdenActionPerformed
+        vOrdenes = new OrdenesView();
         mostrarVentana(vOrdenes);
     }//GEN-LAST:event_jMenuItemNuevaOrdenActionPerformed
 
     private void jMenuItemBuscarPrestadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBuscarPrestadoresActionPerformed
+        vListadoPrestadores = new ListadoPrestadoresView();
         mostrarVentana(vListadoPrestadores);
     }//GEN-LAST:event_jMenuItemBuscarPrestadoresActionPerformed
 
     private void jMenuItemBuscarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBuscarOrdenActionPerformed
+        vListadoOrdenes = new ListadoOrdenesView();
         mostrarVentana(vListadoOrdenes);
     }//GEN-LAST:event_jMenuItemBuscarOrdenActionPerformed
 
     private void jMenuItemABMPrestadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemABMPrestadoresActionPerformed
+        vPrestadores = new PrestadoresView();
         mostrarVentana(vPrestadores);
     }//GEN-LAST:event_jMenuItemABMPrestadoresActionPerformed
 
     private void jMenuItemABMEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemABMEspecialidadesActionPerformed
+        vEspecialidades = new EspecialidadesView();
         mostrarVentana(vEspecialidades);
     }//GEN-LAST:event_jMenuItemABMEspecialidadesActionPerformed
 
     private void jMenuItemABMHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemABMHorariosActionPerformed
+        vHorarios = new HorariosView();
         mostrarVentana(vHorarios);
     }//GEN-LAST:event_jMenuItemABMHorariosActionPerformed
 
     private void jMenuItemABMAfiliadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemABMAfiliadosActionPerformed
+        vAfiliados = new AfiliadosView();
         mostrarVentana(vAfiliados);
     }//GEN-LAST:event_jMenuItemABMAfiliadosActionPerformed
 
     private void jMenuItemBuscarAfiliadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBuscarAfiliadosActionPerformed
+        vListadoAfiliados = new ListadoAfiliadosView();
         mostrarVentana(vListadoAfiliados);
     }//GEN-LAST:event_jMenuItemBuscarAfiliadosActionPerformed
 

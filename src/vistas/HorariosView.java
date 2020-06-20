@@ -272,6 +272,9 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxPrestadoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPrestadoresItemStateChanged
+        if ((Prestador)jComboBoxPrestadores.getSelectedItem() == null)
+            return;
+        
         Prestador prestadorSeleccionado = (Prestador)jComboBoxPrestadores.getSelectedItem();
         int diaSeleccionado = jComboBoxDias.getSelectedIndex();
         
@@ -423,13 +426,13 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
     }//GEN-LAST:event_validarCamposHora
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        int indPre = jComboBoxPrestadores.getSelectedIndex();
+        /*int indPre = jComboBoxPrestadores.getSelectedIndex();
         Prestador objPre = (Prestador)jComboBoxPrestadores.getSelectedItem();
         llenarDesplegablePrestadores();
         if (jComboBoxPrestadores.getItemAt(indPre).equals(objPre))
             jComboBoxPrestadores.setSelectedIndex(indPre);
         
-        llenarTabla((Prestador)jComboBoxPrestadores.getSelectedItem(), jComboBoxDias.getSelectedIndex());
+        llenarTabla((Prestador)jComboBoxPrestadores.getSelectedItem(), jComboBoxDias.getSelectedIndex());*/
     }//GEN-LAST:event_formInternalFrameActivated
     
     private void llenarTabla(Prestador p, int dia){
@@ -492,6 +495,7 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         PrestadorData pd = new PrestadorData();
         prestadores = pd.obtenerPrestadores(true);
         
+        jComboBoxPrestadores.removeAllItems();
         Prestador placeholder = new Prestador(0000000, "Todos seleccionados", new Especialidad("NULL"), true);
         jComboBoxPrestadores.addItem(placeholder);
         jComboBoxPrestadores.setSelectedItem(placeholder);

@@ -212,6 +212,9 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxPrestadoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPrestadoresItemStateChanged
+        if ((Prestador)jComboBoxPrestadores.getSelectedItem() == null)
+            return;
+        
         Prestador p = ((Prestador)jComboBoxPrestadores.getSelectedItem());
         if (p.getId() != -1){
             prestadorSeleccionado = true;
@@ -333,7 +336,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
     }//GEN-LAST:event_jTextFieldDNIBusquedaKeyReleased
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        int indEsp = jComboBoxEspecialidades.getSelectedIndex();
+        /*int indEsp = jComboBoxEspecialidades.getSelectedIndex();
         Especialidad objEsp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
         llenarDesplegableEspecialidades();
         if (jComboBoxEspecialidades.getItemAt(indEsp).equals(objEsp))
@@ -343,7 +346,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         Prestador objPre = (Prestador)jComboBoxPrestadores.getSelectedItem();
         llenarDesplegablePrestadores();
         if (jComboBoxPrestadores.getItemAt(indPre).equals(objPre))
-            jComboBoxPrestadores.setSelectedIndex(indPre);
+            jComboBoxPrestadores.setSelectedIndex(indPre);*/
     }//GEN-LAST:event_formInternalFrameActivated
     
     
@@ -405,6 +408,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         PrestadorData pd = new PrestadorData();
         prestadores = pd.obtenerPrestadores(true);
         
+        jComboBoxPrestadores.removeAllItems();
         Prestador placeholder = new Prestador(0000000, "Ninguno seleccionado", new Especialidad("NULL"), true);
         jComboBoxPrestadores.addItem(placeholder);
         jComboBoxPrestadores.setSelectedItem(placeholder);
@@ -418,6 +422,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         EspecialidadData ed = new EspecialidadData();
         especialidades = ed.obtenerEspecialidades();
         
+        jComboBoxEspecialidades.removeAllItems();
         Especialidad placeholder = new Especialidad("Seleccionar especialidad");
         jComboBoxEspecialidades.addItem(placeholder);
         jComboBoxEspecialidades.setSelectedItem(placeholder);

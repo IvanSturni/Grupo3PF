@@ -135,13 +135,13 @@ public class ListadoPrestadoresView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_jCheckBoxDeshabilitadosItemStateChanged
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        int indEsp = jComboBoxEspecialidades.getSelectedIndex();
+        /*int indEsp = jComboBoxEspecialidades.getSelectedIndex();
         Especialidad objEsp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
         llenarDesplegableEspecialidades();
         if (jComboBoxEspecialidades.getItemAt(indEsp).equals(objEsp))
             jComboBoxEspecialidades.setSelectedIndex(indEsp);
         
-        llenarTabla();
+        llenarTabla();*/
     }//GEN-LAST:event_formInternalFrameActivated
     
     private void llenarTabla(){
@@ -155,10 +155,8 @@ public class ListadoPrestadoresView extends javax.swing.JInternalFrame implement
         PrestadorData pd = new PrestadorData();
         
         if (esp.getId() == -1){
-            System.out.println("Se muestran todas");
             tablaMostrada = pd.obtenerPrestadores(mostrarDeshabilitados);
         } else {
-            System.out.println("Se muestran solo las de la especialidad " + esp.getNombre());
             tablaMostrada = pd.obtenerPrestadoresEspecialidad(esp, mostrarDeshabilitados);
         }
         
