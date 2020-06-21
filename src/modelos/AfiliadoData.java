@@ -41,11 +41,11 @@ public class AfiliadoData {
         return afiliado;
     }
 
-    public ArrayList<Afiliado> obtenerAfiliados() {
+    public ArrayList<Afiliado> obtenerAfiliados(boolean mostrarDeshabilitados) {
         ArrayList<Afiliado> resultados = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM afiliados";
+            String sql = "SELECT * FROM afiliados WHERE activo = " + (mostrarDeshabilitados ? "0 OR 1" : "1") + ";";;
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 

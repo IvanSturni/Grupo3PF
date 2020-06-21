@@ -23,7 +23,7 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View{
         initComponents();
         ArrayList<Afiliado> listaAfiliados;
         AfiliadoData afiliadoData = new AfiliadoData();
-        listaAfiliados = afiliadoData.obtenerAfiliados();
+        listaAfiliados = afiliadoData.obtenerAfiliados(true);
         for(Afiliado afiliado:listaAfiliados){
             if(afiliado.isActivo())
                 this.listaAfil.add(String.valueOf(afiliado.getDni()));

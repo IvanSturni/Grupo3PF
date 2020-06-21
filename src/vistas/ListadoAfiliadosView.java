@@ -108,17 +108,9 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
         for (int i = tableModel.getRowCount(); i > 0; i--){
             tableModel.removeRow(i-1);
         }
-        tablaMostrada = ad.obtenerAfiliados();
-        if (activado) {
+        tablaMostrada = ad.obtenerAfiliados(activado);
             for (Afiliado a : tablaMostrada){
             tableModel.addRow(new Object[]{a.getDni(), a.getNombre(), (a.isActivo() ? "Si" : "No")});
-        }
-        }
-        
-        for (Afiliado a : tablaMostrada){
-            if (a.isActivo() == true) {
-                tableModel.addRow(new Object[]{a.getDni(), a.getNombre(), (a.isActivo() ? "Si" : "No")});
-            }
             
         }
          

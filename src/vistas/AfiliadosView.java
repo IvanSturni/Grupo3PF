@@ -157,7 +157,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-         int dni = Integer.parseInt(jtDni.getText());
+       int dni = Integer.parseInt(jtDni.getText());
        String nombre = jtNombre.getText();
        boolean activo = jcActivo.isEnabled();
        Afiliado afiliado = new Afiliado(dni, nombre, activo);
