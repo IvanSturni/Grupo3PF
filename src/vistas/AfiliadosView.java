@@ -189,15 +189,19 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
     }//GEN-LAST:event_btVerOrdenesActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        int id = Integer.parseInt(jtId.getText());
-        Afiliado afiliado = ad.obtenerAfiliado(id);
-        if(afiliado!=null){
-            
-            jtId.setText(afiliado.getId()+"");
-            jtDni.setText(afiliado.getDni()+ "");
-            jtNombre.setText(afiliado.getNombre());
-            jcActivo.setSelected(afiliado.isActivo());
-        }
+       
+       int dni = Integer.parseInt(jtDni.getText());
+       boolean dniInvalido = false;
+       Afiliado afiliado = ad.obtenerAfiliadoDNI(dni);
+       
+       if(afiliado !=null){
+        jtId.setText(afiliado.getId()+"");
+        jtDni.setText(afiliado.getDni() + "");
+        jtNombre.setText(afiliado.getNombre());
+        jcActivo.setSelected(afiliado.isActivo());
+       
+       }
+       
     }//GEN-LAST:event_btBuscarActionPerformed
     
     public void limpiar(){

@@ -23,6 +23,23 @@ public class AfiliadoData {
         }
         return afiliado;
     }
+    
+    public Afiliado obtenerAfiliadoDNI(int dni){
+        Afiliado afiliado = null;
+        try {
+            String sql = "SELECT * FROM afiliados WHERE dni = " + dni + ";";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            while(rs.next()){   
+                afiliado = new Afiliado(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), rs.getBoolean("activo"));
+            }      
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener afiliado por DNI: " + e.getMessage());
+        }
+        return afiliado;
+    }
 
     public Afiliado obtenerAfiliado(int id) {
         Afiliado afiliado = null;
