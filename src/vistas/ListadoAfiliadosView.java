@@ -15,6 +15,7 @@ import modelos.*;
  * @author Eourist
  */
 public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements View{
+    AfiliadoData ad;
     DefaultTableModel tableModel;
     ArrayList<Afiliado> tablaMostrada;
 
@@ -23,9 +24,9 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
      */
     public ListadoAfiliadosView() {
         initComponents();
+        ad = new AfiliadoData();
         tableModel = new DefaultTableModel();
         armarEncabezados();
-        llenarDesplegableEspecialidades();
         llenarTabla();
     }
 
@@ -39,15 +40,13 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePrestadores = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
+        jtAfiliados = new javax.swing.JTable();
         jCheckBoxDeshabilitados = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("Administracion de afiliados");
 
-        jTablePrestadores.setModel(new javax.swing.table.DefaultTableModel(
+        jtAfiliados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,20 +57,17 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTablePrestadores);
-
-        jLabel1.setText("Filtrar por especialidad:");
-
-        jComboBoxEspecialidades.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxEspecialidadesItemStateChanged(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jtAfiliados);
 
         jCheckBoxDeshabilitados.setText("Mostrar inactivos");
         jCheckBoxDeshabilitados.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxDeshabilitadosItemStateChanged(evt);
+            }
+        });
+        jCheckBoxDeshabilitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxDeshabilitadosActionPerformed(evt);
             }
         });
 
@@ -80,89 +76,66 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEspecialidades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxDeshabilitados))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(288, 288, 288)
+                .addComponent(jCheckBoxDeshabilitados)
+                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxDeshabilitados))
+                .addComponent(jCheckBoxDeshabilitados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxEspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesItemStateChanged
-        if (jComboBoxEspecialidades.getSelectedItem() != null)
-        llenarTabla();
-    }//GEN-LAST:event_jComboBoxEspecialidadesItemStateChanged
-
     private void jCheckBoxDeshabilitadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxDeshabilitadosItemStateChanged
-        llenarTabla();
+       llenarTabla();
     }//GEN-LAST:event_jCheckBoxDeshabilitadosItemStateChanged
 
-    private void llenarTabla(){
-        Especialidad esp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
-        boolean mostrarDeshabilitados = jCheckBoxDeshabilitados.isSelected();
+    private void jCheckBoxDeshabilitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDeshabilitadosActionPerformed
+       llenarTabla();
+    }//GEN-LAST:event_jCheckBoxDeshabilitadosActionPerformed
+
+    public void llenarTabla(){
+        boolean activado = jCheckBoxDeshabilitados.isSelected();
         
         for (int i = tableModel.getRowCount(); i > 0; i--){
             tableModel.removeRow(i-1);
         }
-        
-        AfiliadoData ad = new AfiliadoData();
-        
-        if (esp.getId() == -1){
-            tablaMostrada = ad.obtenerAfiliado(mostrarDeshabilitados);
-        } else {
-            tablaMostrada = ad.obtenerPrestadoresEspecialidad(esp, mostrarDeshabilitados);
+        tablaMostrada = ad.obtenerAfiliados();
+        if (activado) {
+            for (Afiliado a : tablaMostrada){
+            tableModel.addRow(new Object[]{a.getDni(), a.getNombre(), (a.isActivo() ? "Si" : "No")});
+        }
         }
         
-        for (Prestador p : tablaMostrada){
-            tableModel.addRow(new Object[]{p.getDni(), p.getNombre(), p.getEspecialidad() != null ? p.getEspecialidad().getNombre() : "", (p.isActivo() ? "Si" : "No")});
+        for (Afiliado a : tablaMostrada){
+            if (a.isActivo() == true) {
+                tableModel.addRow(new Object[]{a.getDni(), a.getNombre(), (a.isActivo() ? "Si" : "No")});
+            }
+            
         }
+         
     }
-    
+
     private void armarEncabezados(){
         ArrayList<Object> ob = new ArrayList<Object>();
         ob.add("DNI");
         ob.add("Nombre");
-        ob.add("Especialidad");
         ob.add("Activo");
         
         for(Object o : ob){
             tableModel.addColumn(o);
         }
-        jTablePrestadores.setModel(tableModel);
+        jtAfiliados.setModel(tableModel);
     }
-    
-    private void llenarDesplegableEspecialidades(){
-        ArrayList<Especialidad> especialidades = new ArrayList<>();
-        EspecialidadData ed = new EspecialidadData();
-        especialidades = ed.obtenerEspecialidades();
-        
-        jComboBoxEspecialidades.removeAllItems();
-        Especialidad placeholder = new Especialidad("Todas seleccionadas");
-        jComboBoxEspecialidades.addItem(placeholder);
-        jComboBoxEspecialidades.setSelectedItem(placeholder);
-        for (Especialidad e : especialidades){
-            jComboBoxEspecialidades.addItem(e);
-        }
-    }
+
 
     
     @Override
@@ -171,9 +144,7 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBoxDeshabilitados;
-    private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTablePrestadores;
+    private javax.swing.JTable jtAfiliados;
     // End of variables declaration//GEN-END:variables
 }
