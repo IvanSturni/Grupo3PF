@@ -5,24 +5,28 @@
  */
 package vistas;
 
-import entidades.Afiliado;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import modelos.AfiliadoData;
+import entidades.*;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelos.*;
 
 /**
  *
  * @author Eourist
  */
 public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements View{
-    AfiliadoData ad;
+    DefaultTableModel tableModel;
+    ArrayList<Afiliado> tablaMostrada;
 
     /**
      * Creates new form ListadoAfiliadosView
      */
     public ListadoAfiliadosView() {
-        ad = new AfiliadoData();
         initComponents();
+        tableModel = new DefaultTableModel();
+        armarEncabezados();
+        llenarDesplegableEspecialidades();
+        llenarTabla();
     }
 
     /**
@@ -34,210 +38,142 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablePrestadores = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jtId = new javax.swing.JTextField();
-        jtDni = new javax.swing.JTextField();
-        jtNombre = new javax.swing.JTextField();
-        btBuscar = new javax.swing.JButton();
-        btGuardar = new javax.swing.JButton();
-        btEliminar = new javax.swing.JButton();
-        btModificar = new javax.swing.JButton();
-        jcActivo = new javax.swing.JCheckBox();
-        btVerOrdenes = new javax.swing.JButton();
+        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
+        jCheckBoxDeshabilitados = new javax.swing.JCheckBox();
 
         setClosable(true);
         setTitle("Administracion de afiliados");
 
-        jLabel1.setText("ID");
+        jTablePrestadores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTablePrestadores);
 
-        jLabel2.setText("DNI");
+        jLabel1.setText("Filtrar por especialidad:");
 
-        jLabel3.setText("NOMBRE");
-
-        jLabel4.setText("ACTIVO");
-
-        jtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtNombreActionPerformed(evt);
+        jComboBoxEspecialidades.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxEspecialidadesItemStateChanged(evt);
             }
         });
 
-        btBuscar.setText("Buscar");
-        btBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBuscarActionPerformed(evt);
+        jCheckBoxDeshabilitados.setText("Mostrar inactivos");
+        jCheckBoxDeshabilitados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxDeshabilitadosItemStateChanged(evt);
             }
         });
-
-        btGuardar.setText("Guardar");
-        btGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGuardarActionPerformed(evt);
-            }
-        });
-
-        btEliminar.setText("Eliminar");
-        btEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEliminarActionPerformed(evt);
-            }
-        });
-
-        btModificar.setText("Modificar");
-        btModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btModificarActionPerformed(evt);
-            }
-        });
-
-        btVerOrdenes.setText("Ver ordenes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                    .addComponent(jtDni)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel1))
-                                    .addGap(93, 93, 93)
-                                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(btGuardar)
-                                    .addGap(58, 58, 58)
-                                    .addComponent(btEliminar))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btBuscar)
-                            .addComponent(btModificar)
-                            .addComponent(btVerOrdenes))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jcActivo)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxEspecialidades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxDeshabilitados))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btVerOrdenes))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jcActivo))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGuardar)
-                    .addComponent(btEliminar)
-                    .addComponent(btModificar))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxDeshabilitados))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtNombreActionPerformed
+    private void jComboBoxEspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesItemStateChanged
+        if (jComboBoxEspecialidades.getSelectedItem() != null)
+        llenarTabla();
+    }//GEN-LAST:event_jComboBoxEspecialidadesItemStateChanged
 
-    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-       
-       //Afiliado a;
-       int dni = Integer.parseInt(jtDni.getText());
-       String nombre = jtNombre.getText();
-       boolean activo = jcActivo.isEnabled();
-       Afiliado afiliado = new Afiliado(dni, nombre, activo);
-       ad.altaAfiliado(afiliado);
-       limpiar();
-    }//GEN-LAST:event_btGuardarActionPerformed
+    private void jCheckBoxDeshabilitadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxDeshabilitadosItemStateChanged
+        llenarTabla();
+    }//GEN-LAST:event_jCheckBoxDeshabilitadosItemStateChanged
 
-    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
-        int id = Integer.parseInt(jtId.getText());
-        ad.bajaAfiliado(id);
-        limpiar();
-    }//GEN-LAST:event_btEliminarActionPerformed
-
-    private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
-        if(jtId.getText() != null){
-            int id = Integer.parseInt(jtId.getText());
-            int dni = Integer.parseInt(jtDni.getText());
-            String nombre = jtNombre.getText();
-            boolean activo = jcActivo.isEnabled();
-            Afiliado afiliado = new Afiliado(dni, nombre, activo);
-            ad.actualizarAfiliado(id, afiliado);
-            limpiar();
-            
-        }
-    }//GEN-LAST:event_btModificarActionPerformed
-
-    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        int id = Integer.parseInt(jtId.getText());
-        Afiliado afiliado = ad.obtenerAfiliado(id);
-        if(afiliado!=null){
-            
-            jtId.setText(afiliado.getId()+"");
-            jtDni.setText(afiliado.getDni()+ "");
-            jtNombre.setText(afiliado.getNombre());
-            jcActivo.setSelected(afiliado.isActivo());
-        }
-    }//GEN-LAST:event_btBuscarActionPerformed
-
-     public void limpiar(){
-        jtDni.setText("");
-        jtId.setText("");
-        jtNombre.setText("");
-        jcActivo.setEnabled(false);
+    private void llenarTabla(){
+        Especialidad esp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();
+        boolean mostrarDeshabilitados = jCheckBoxDeshabilitados.isSelected();
         
+        for (int i = tableModel.getRowCount(); i > 0; i--){
+            tableModel.removeRow(i-1);
+        }
+        
+        AfiliadoData ad = new AfiliadoData();
+        
+        if (esp.getId() == -1){
+            tablaMostrada = ad.obtenerAfiliado(mostrarDeshabilitados);
+        } else {
+            tablaMostrada = ad.obtenerPrestadoresEspecialidad(esp, mostrarDeshabilitados);
+        }
+        
+        for (Prestador p : tablaMostrada){
+            tableModel.addRow(new Object[]{p.getDni(), p.getNombre(), p.getEspecialidad() != null ? p.getEspecialidad().getNombre() : "", (p.isActivo() ? "Si" : "No")});
+        }
     }
+    
+    private void armarEncabezados(){
+        ArrayList<Object> ob = new ArrayList<Object>();
+        ob.add("DNI");
+        ob.add("Nombre");
+        ob.add("Especialidad");
+        ob.add("Activo");
+        
+        for(Object o : ob){
+            tableModel.addColumn(o);
+        }
+        jTablePrestadores.setModel(tableModel);
+    }
+    
+    private void llenarDesplegableEspecialidades(){
+        ArrayList<Especialidad> especialidades = new ArrayList<>();
+        EspecialidadData ed = new EspecialidadData();
+        especialidades = ed.obtenerEspecialidades();
+        
+        jComboBoxEspecialidades.removeAllItems();
+        Especialidad placeholder = new Especialidad("Todas seleccionadas");
+        jComboBoxEspecialidades.addItem(placeholder);
+        jComboBoxEspecialidades.setSelectedItem(placeholder);
+        for (Especialidad e : especialidades){
+            jComboBoxEspecialidades.addItem(e);
+        }
+    }
+
     
     @Override
     public void actualizarValores(){
         System.out.println("Se actualizo la vista de Listado de afiliados");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btEliminar;
-    private javax.swing.JButton btGuardar;
-    private javax.swing.JButton btModificar;
-    private javax.swing.JButton btVerOrdenes;
+    private javax.swing.JCheckBox jCheckBoxDeshabilitados;
+    private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JCheckBox jcActivo;
-    private javax.swing.JTextField jtDni;
-    private javax.swing.JTextField jtId;
-    private javax.swing.JTextField jtNombre;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTablePrestadores;
     // End of variables declaration//GEN-END:variables
 }
