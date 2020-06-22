@@ -134,15 +134,21 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
 
         jTextFieldHoraDesde.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldHoraDesde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                validarHora(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                validarCamposHora(evt);
+                validarCamposHorarios(evt);
             }
         });
 
         jTextFieldHoraHasta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldHoraHasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                validarHora(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                validarCamposHora(evt);
+                validarCamposHorarios(evt);
             }
         });
 
@@ -161,8 +167,11 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
 
         jTextFieldMinutosDesde.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldMinutosDesde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                validarMinuto(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                validarCamposHora(evt);
+                validarCamposHorarios(evt);
             }
         });
 
@@ -170,8 +179,11 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
 
         jTextFieldMinutosHasta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldMinutosHasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                validarMinuto(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                validarCamposHora(evt);
+                validarCamposHorarios(evt);
             }
         });
 
@@ -420,10 +432,10 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         }
     }//GEN-LAST:event_jButtonGuardarTablaActionPerformed
 
-    private void validarCamposHora(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarCamposHora
+    private void validarCamposHorarios(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarCamposHorarios
         if (!Character.isDigit(evt.getKeyChar()) || ((JTextField)evt.getSource()).getText().length() >= 2)
             evt.consume();
-    }//GEN-LAST:event_validarCamposHora
+    }//GEN-LAST:event_validarCamposHorarios
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         /*int indPre = jComboBoxPrestadores.getSelectedIndex();
@@ -434,6 +446,22 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         
         llenarTabla((Prestador)jComboBoxPrestadores.getSelectedItem(), jComboBoxDias.getSelectedIndex());*/
     }//GEN-LAST:event_formInternalFrameActivated
+
+    private void validarHora(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarHora
+        JTextField tf = (JTextField)evt.getSource();
+        if (tf.getText().equals(""))
+            return;
+        if (Integer.parseInt(tf.getText()) > 24)
+            tf.setText("24");
+    }//GEN-LAST:event_validarHora
+
+    private void validarMinuto(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarMinuto
+        JTextField tf = (JTextField)evt.getSource();
+        if (tf.getText().equals(""))
+            return;
+        if (Integer.parseInt(tf.getText()) > 60)
+            tf.setText("60");
+    }//GEN-LAST:event_validarMinuto
     
     private void llenarTabla(Prestador p, int dia){
         for (int i = tableModel.getRowCount(); i > 0; i--){
