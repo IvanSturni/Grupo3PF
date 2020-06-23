@@ -6,6 +6,7 @@
 package vistas;
 
 import entidades.*;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -86,6 +87,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         jComboBoxMes.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 actualizarTabla(evt);
+                actualizarDias(evt);
             }
         });
 
@@ -94,6 +96,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         jComboBoxAño.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 actualizarTabla(evt);
+                actualizarDias(evt);
             }
         });
 
@@ -191,6 +194,10 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         jComboBoxAño.setEnabled(activo);
     }//GEN-LAST:event_jCheckBoxFiltroFechaItemStateChanged
 
+    private void actualizarDias(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_actualizarDias
+        llenarDesplegableDias();
+    }//GEN-LAST:event_actualizarDias
+
     private void armarEncabezados(){
         ArrayList<Object> ob = new ArrayList<Object>();
         ob.add("Afiliado");
@@ -214,7 +221,13 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         Prestador prestador = (Prestador)jComboBoxPrestador.getSelectedItem();
         if (1+jComboBoxMes.getSelectedIndex() == 0 || 1+jComboBoxDia.getSelectedIndex() == 0 || afiliado == null || prestador == null)
             return;
-        LocalDate fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 1+jComboBoxDia.getSelectedIndex());
+        LocalDate fecha;
+        try {
+        fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 1+jComboBoxDia.getSelectedIndex());
+        } catch (DateTimeException e ){
+            jComboBoxDia.setSelectedIndex(27);
+            fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 28);
+        }
         OrdenData od = new OrdenData();
         ArrayList<Orden> tablaMostrada = new ArrayList<>();
         
@@ -290,7 +303,8 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
     }
     
     private void llenarDesplegableDias(){
-        int mesSeleccionado = jComboBoxMes.getSelectedIndex();
+        int diaSeleccionado = jComboBoxDia.getSelectedIndex();
+        int mesSeleccionado = jComboBoxMes.getSelectedIndex()+1;
         int dias = 0;
         switch(mesSeleccionado){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -298,6 +312,8 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
                 break;
             case 2:
                 dias = 28;
+                if (Integer.parseInt((String)jComboBoxAño.getSelectedItem()) % 4 == 0)
+                    dias = 29;
                 break;
             default:
                 dias = 30;
@@ -308,8 +324,10 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         for (int i = 1; i <= dias; i++){
             jComboBoxDia.addItem(String.valueOf(i));
         }
-        if (LocalDate.now().getMonthValue()-1 == jComboBoxMes.getSelectedIndex())
-            jComboBoxDia.setSelectedIndex(LocalDate.now().getDayOfMonth()-1);
+        
+        if (jComboBoxDia.getItemAt(diaSeleccionado) != null){
+            jComboBoxDia.setSelectedIndex(diaSeleccionado);
+        }
     }
     
     private void llenarDesplegableMeses(){
@@ -317,7 +335,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         for (int i = 1; i <= 12; i++){
             jComboBoxMes.addItem(String.valueOf(i));
         }
-        jComboBoxMes.setSelectedIndex(LocalDate.now().getMonthValue()-1);
+        
         /*jComboBoxMes.addItem("Enero");
         jComboBoxMes.addItem("Febrero");
         jComboBoxMes.addItem("Marzo");
