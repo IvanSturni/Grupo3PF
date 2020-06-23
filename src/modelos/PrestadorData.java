@@ -84,6 +84,47 @@ public class PrestadorData {
         
         return resultados;
     }
+    
+    static public ArrayList<Prestador> obtenerPrestadoresDisponibles2(Especialidad especialidad, LocalDate fecha){
+        ArrayList<Prestador> resultados = new ArrayList<>();
+        EspecialidadData em = new EspecialidadData();
+        
+        try {
+            String sql;
+            /*sql = "SELECT DISTINCT p.* "
+                    + "FROM prestadores p "
+                    + "JOIN horarios h ON p.id = h.idPrestador "
+                    + "WHERE h.dia = " + fecha.getDayOfWeek().getValue()
+                    + " AND p.idEspecialidad = " + especialidad.getId()
+                    + " AND h.id NOT IN (SELECT ho.id "
+                    + "                 FROM ordenes o "
+                    + "                 JOIN horarios ho ON o.idHorario = ho.id "
+                    + "                 WHERE o.fechaAtencion = '" + fecha.toString() + "'";*/
+            sql =   "SELECT DISTINCT p.* \n" +
+                    "FROM prestadores p \n" +
+                    "JOIN horarios h ON p.id = h.idPrestador \n" +
+                    "WHERE h.dia = "+fecha.getDayOfWeek().getValue()+"\n" +
+                    "AND p.idEspecialidad = "+especialidad.getId()+"\n" +
+                    "AND h.id NOT IN (SELECT ho.id \n" +
+                    "              FROM ordenes o \n" +
+                    "              JOIN horarios ho ON o.idHorario = ho.id \n" +
+                    "              WHERE o.fechaAtencion = '"+fecha.toString()+"')";
+            System.out.println(sql);
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            
+            while (rs.next()){
+                Especialidad e = (rs.getInt("idEspecialidad") > 0) ? (Especialidad)em.obtenerEspecialidad(rs.getInt("idespecialidad")) : null;
+                resultados.add(new Prestador(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), e, rs.getBoolean("activo")));
+            }
+            s.close();
+        } catch (SQLException e){
+            System.out.println("Error al obtener prestadores:" + e.getMessage());
+        }
+        
+        return resultados;
+    }
+    
     static public ArrayList<Prestador> obtenerPrestadoresDisponibles(LocalDate fecha){
         ArrayList<Prestador> resultados = new ArrayList<>();
         EspecialidadData em = new EspecialidadData();
@@ -100,8 +141,8 @@ public class PrestadorData {
                    + "            from (\n"
                    + "                SELECT idPrestador,fechaAtencion \n"
                    + "                from (SELECT * FROM ordenes WHERE (fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date)) and (activa = 1)) as orde\n"
-                   + "                INNER JOIN horarios\n"
-                   + "                on horarios.id = orde.idHorario\n"
+                   + "                INNER JOIN ( select * from horarios WHERE dia = "+fecha.getDayOfWeek().getValue() +") as o\n"
+                   + "                on o.id = orde.idHorario\n"
                    + "            )as trabajos\n"
                    + "        RIGHT JOIN prestadores\n"
                    + "        on prestadores.id = trabajos.idPrestador\n"

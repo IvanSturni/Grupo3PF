@@ -108,7 +108,7 @@ public class HorarioData {
                     + "	SELECT fechaAtencion , idHorario from ordenes WHERE fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date) \n"
                     + ")AS orde\n"
                     + "on orde.idHorario = horarios.id\n"
-                    + "where (fechaAtencion is null) and (horarios.idPrestador = "+ idPrestador +")";
+                    + "where (fechaAtencion is null) and (horarios.idPrestador = "+ idPrestador +") and (dia = "+fecha.getDayOfWeek().getValue()+")";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
