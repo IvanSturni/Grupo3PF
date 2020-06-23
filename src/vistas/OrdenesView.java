@@ -491,7 +491,7 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
                 this.lNomPrestadpr.add(prestador.getNombre());
             }
         }
-
+        this.jLError.setText(this.fechaAtencion.getDayOfWeek()+ " ");
         //this.jLdia.setText(this.fechaAtencion.getDayOfWeek() + "  " + this.fechaAtencion);
     }//GEN-LAST:event_jButtonBuscarPrestadorActionPerformed
 
