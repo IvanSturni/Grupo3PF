@@ -91,7 +91,7 @@ public class PrestadorData {
         
         try {
             String sql;
-             sql = "SELECT id ,dni , nombre , idEspecialidad , activo \n" 
+             sql = "SELECT DISTINCT id ,dni , nombre , idEspecialidad , activo \n" 
                      +"from prestadores\n" 
                      +"INNER JOIN (\n" 
                      +"select ho.idPrestador as prestadores\n" 

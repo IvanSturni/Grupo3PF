@@ -166,7 +166,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mostrarVentana(Component ventana){
-        jDesktopPane.removeAll();
+        //jDesktopPane.removeAll();
         jDesktopPane.repaint();
         jDesktopPane.add(ventana);
         ventana.setVisible(true);

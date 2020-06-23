@@ -5,17 +5,29 @@
  */
 package vistas;
 
+import entidades.*;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelos.*;
+
 /**
  *
  * @author Eourist
  */
 public class ListadoOrdenesView extends javax.swing.JInternalFrame implements View{
-
+    DefaultTableModel tableModel;
     /**
      * Creates new form ListadoOrdenesView
      */
     public ListadoOrdenesView() {
+        tableModel = new DefaultTableModel();
         initComponents();
+        llenarDesplegableAños();
+        llenarDesplegableMeses();
+        llenarDesplegableDias();
+        llenarDesplegableAfiliados();
     }
 
     /**
@@ -27,27 +39,179 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableOrdenes = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBoxDia = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxMes = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxAño = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxAfiliado = new javax.swing.JComboBox<>();
+
         setClosable(true);
         setTitle("Listado de ordenes");
+
+        jTableOrdenes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableOrdenes);
+
+        jLabel1.setText("Dia:");
+
+        jLabel2.setText("Mes:");
+
+        jLabel3.setText("Año:");
+
+        jLabel4.setText("Afiliado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAfiliado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void armarEncabezados(){
+        ArrayList<Object> ob = new ArrayList<Object>();
+        ob.add("Afiliado");
+        ob.add("Prestador");
+        ob.add("Fecha");
+        ob.add("Hora");
+        ob.add("Pago");
+        
+        for(Object o : ob){
+            tableModel.addColumn(o);
+        }
+        jTableOrdenes.setModel(tableModel);
+    }
+    
+    private void llenarTabla(){
+        LocalDate fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.MARCH, jComboBoxDia.getSelectedIndex()-1);
+    }
+    
+    private void llenarDesplegableAfiliados(){
+        ArrayList<Afiliado> afiliados = AfiliadoData.obtenerAfiliados(false);
+        
+        for (Afiliado a : afiliados){
+            System.out.println(a.getNombre());
+            jComboBoxAfiliado.addItem(a);
+        }
+    }
+    
+    private void llenarDesplegableDias(){
+        int mesSeleccionado = jComboBoxMes.getSelectedIndex();
+        int dias = 0;
+        switch(mesSeleccionado){
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                dias = 31;
+                break;
+            case 2:
+                dias = 28;
+                break;
+            default:
+                dias = 30;
+                break;
+        }
+        
+        for (int i = 1; i <= dias; i++){
+            jComboBoxDia.addItem(String.valueOf(i));
+        }
+        if (LocalDate.now().getMonthValue()-1 == jComboBoxMes.getSelectedIndex())
+            jComboBoxDia.setSelectedIndex(LocalDate.now().getDayOfMonth()-1);
+    }
+    
+    private void llenarDesplegableMeses(){
+        for (int i = 1; i <= 12; i++){
+            jComboBoxMes.addItem(String.valueOf(i));
+        }
+        jComboBoxMes.setSelectedIndex(LocalDate.now().getMonthValue()-1);
+        /*jComboBoxMes.addItem("Enero");
+        jComboBoxMes.addItem("Febrero");
+        jComboBoxMes.addItem("Marzo");
+        jComboBoxMes.addItem("Abril");
+        jComboBoxMes.addItem("Mayo");
+        jComboBoxMes.addItem("Junio");
+        jComboBoxMes.addItem("Julio");
+        jComboBoxMes.addItem("Agosto");
+        jComboBoxMes.addItem("Septiembre");
+        jComboBoxMes.addItem("Octubre");
+        jComboBoxMes.addItem("Noviembre");
+        jComboBoxMes.addItem("Diciembre");*/
+    }
+    
+    private void llenarDesplegableAños(){
+        int añoActual = LocalDate.now().getYear();
+        
+        for (int i = añoActual-2; i <= añoActual+2; i++){
+            jComboBoxAño.addItem(String.valueOf(i));
+        }
+        jComboBoxAño.setSelectedIndex(2);
+    }
+    
     @Override
     public void actualizarValores(){
         System.out.println("Se actualizo la vista de Listado de ordenes");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Afiliado> jComboBoxAfiliado;
+    private javax.swing.JComboBox<String> jComboBoxAño;
+    private javax.swing.JComboBox<String> jComboBoxDia;
+    private javax.swing.JComboBox<String> jComboBoxMes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableOrdenes;
     // End of variables declaration//GEN-END:variables
 }
