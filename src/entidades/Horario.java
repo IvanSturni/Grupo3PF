@@ -66,6 +66,6 @@ public class Horario {
     
     @Override
     public String toString(){
-        return dia.name() + ": " + horaInicio.toString() + " - " + horaFin.toString();
+        return horaInicio.toString() + " - " + horaFin.toString();
     }
 }
