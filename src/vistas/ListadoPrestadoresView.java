@@ -70,6 +70,11 @@ public class ListadoPrestadoresView extends javax.swing.JInternalFrame implement
                 jComboBoxEspecialidadesItemStateChanged(evt);
             }
         });
+        jComboBoxEspecialidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEspecialidadesActionPerformed(evt);
+            }
+        });
 
         jCheckBoxDeshabilitados.setText("Mostrar inactivos");
         jCheckBoxDeshabilitados.addItemListener(new java.awt.event.ItemListener() {
@@ -143,6 +148,10 @@ public class ListadoPrestadoresView extends javax.swing.JInternalFrame implement
         
         llenarTabla();*/
     }//GEN-LAST:event_formInternalFrameActivated
+
+    private void jComboBoxEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxEspecialidadesActionPerformed
     
     private void llenarTabla(){
         Especialidad esp = (Especialidad)jComboBoxEspecialidades.getSelectedItem();

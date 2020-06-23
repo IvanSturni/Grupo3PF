@@ -15,7 +15,7 @@ public class Menu extends javax.swing.JFrame {
     AfiliadosView vAfiliados = new AfiliadosView();
     EspecialidadesView vEspecialidades = new EspecialidadesView();
     HorariosView vHorarios = new HorariosView();
-    OrdenesView vOrdenes = new OrdenesView();
+    OrdenesView vOrdenes;
     PrestadoresView vPrestadores = new PrestadoresView();
     
     ListadoAfiliadosView vListadoAfiliados = new ListadoAfiliadosView();

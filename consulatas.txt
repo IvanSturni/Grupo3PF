@@ -1,0 +1,68 @@
+"todos los prestadores con turnos para un dia en concreto"
+
+SELECT fechaAtencion,prestador, especialidad , COUNT(fechaAtencion) as turnosDados
+FROM(
+    SELECT fechaAtencion,prestador,nombre as especialidad
+    from(
+        SELECT fechaAtencion,nombre as prestador, idEspecialidad
+            from (
+                SELECT idPrestador,fechaAtencion 
+                from (SELECT * FROM ordenes WHERE fechaAtencion = cast('2020-03-03' as date)) as orde
+                INNER JOIN horarios
+                on horarios.id = orde.idHorario
+            )as trabajos
+        INNER JOIN prestadores
+        on prestadores.id = trabajos.idPrestador
+    )as calendario
+    INNER JOIN especialidades 
+    on especialidades.id = calendario.idEspecialidad
+) as tabla
+GROUP BY tabla.fechaAtencion
+
+"todos los prestadores con turnos disponibles para un dia en concreto solo validacion"
+
+SELECT fechaAtencion,prestador, especialidad , COUNT(fechaAtencion) as turnosDados
+FROM(
+    SELECT fechaAtencion,prestador,nombre as especialidad
+    from(
+        SELECT fechaAtencion,nombre as prestador, idEspecialidad
+            from (
+                SELECT idPrestador,fechaAtencion 
+                from (SELECT * FROM ordenes WHERE fechaAtencion = cast('2020-03-03' as date)) as orde
+                INNER JOIN horarios
+                on horarios.id = orde.idHorario
+            )as trabajos
+        RIGHT JOIN prestadores
+        on prestadores.id = trabajos.idPrestador
+    )as calendario
+    INNER JOIN especialidades 
+    on especialidades.id = calendario.idEspecialidad
+) as tabla
+GROUP BY tabla.prestador
+HAVING COUNT(prestador)<2
+
+"todos los prestadores con turnos disponibles para un dia que esten activos"
+
+SELECT id,dni,nombre,idEspecialidad,activo from prestadores
+INNER JOIN(
+SELECT prestador
+FROM(
+    SELECT fechaAtencion,prestador,nombre as especialidad
+    from(
+        SELECT fechaAtencion,id as prestador, idEspecialidad
+            from (
+                SELECT idPrestador,fechaAtencion 
+                from (SELECT * FROM ordenes WHERE fechaAtencion = cast('2020-03-03' as date)) as orde
+                INNER JOIN horarios
+                on horarios.id = orde.idHorario
+            )as trabajos
+        RIGHT JOIN prestadores
+        on prestadores.id = trabajos.idPrestador
+    )as calendario
+    INNER JOIN especialidades 
+    on especialidades.id = calendario.idEspecialidad
+) as tabla
+GROUP BY tabla.prestador
+HAVING COUNT(prestador)<2) as disponibles
+on disponibles.prestador = prestadores.id
+WHERE activo = 1

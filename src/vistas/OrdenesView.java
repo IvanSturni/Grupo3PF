@@ -5,29 +5,102 @@
  */
 package vistas;
 
-import entidades.Afiliado;
-import java.awt.List;
+import entidades.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import modelos.AfiliadoData;
+import java.util.Arrays;
+import javax.swing.table.DefaultTableModel;
+import modelos.*;
 
 /**
  *
  * @author Eourist
  */
-public class OrdenesView extends javax.swing.JInternalFrame implements View{
+public class OrdenesView extends javax.swing.JInternalFrame implements View {
+
+    ArrayList<Prestador> prestadores;
+    LocalDate fechaCreacion;
+    LocalDate fechaAtencion;
+    boolean habilitar = false;
+    Afiliado afiliado;
+    Horario horario;
+    Horario turnoTarde;
+    Horario turnoMañana;
+    boolean efectivo;
+    ArrayList<Horario> horarios;
 
     /**
      * Creates new form OrdenesView
      */
     public OrdenesView() {
         initComponents();
-        ArrayList<Afiliado> listaAfiliados;
-        AfiliadoData afiliadoData = new AfiliadoData();
-        listaAfiliados = afiliadoData.obtenerAfiliados(true);
-        for(Afiliado afiliado:listaAfiliados){
-            if(afiliado.isActivo())
-                this.listaAfil.add(String.valueOf(afiliado.getDni()));
+        llenarDesplegableEspecialidades();
+        this.fechaCreacion = LocalDate.now();
+        this.fechaAtencion = this.fechaCreacion;
+        setFecha(fechaCreacion);
+        for (Component component : getComponents(this.jPrestador)) {
+            component.setEnabled(false);
         }
+
+        this.habilitar = true;
+        this.jrTurnoMañana.setEnabled(false);
+        this.jrTurnoTarde.setEnabled(false);
+    }
+
+    private void limpiarTodo() {
+        this.fechaAtencion = this.fechaCreacion;
+        setFecha(fechaCreacion);
+        for (Component component : getComponents(this.jPrestador)) {
+            component.setEnabled(false);
+        }
+        this.jrTurnoMañana.setSelected(false);
+        this.jrTurnoTarde.setSelected(false);
+        this.jrTurnoMañana.setEnabled(false);
+        this.jrTurnoTarde.setEnabled(false);
+        this.afiliado = null;
+        Horario horario = null;
+        Horario turnoTarde = null;
+        Horario turnoMañana = null;
+        this.jTdniAfiliado.setText("");
+        this.jRadioButton1.setSelected(false);
+        this.jRadioButton2.setSelected(false);
+        if (this.lIdPrestador.getItemCount() > 0) {
+            this.lIdPrestador.removeAll();
+            this.lNomPrestadpr.removeAll();
+        }
+    }
+
+    private void setFecha(LocalDate fecha) {
+        setDias(fecha);
+        setMes(fecha);
+        setAño(fecha);
+    }
+
+    private void setAño(LocalDate date) {
+        for (int i = 0; i < 3; i++) {
+            jcAño.addItem((date.getYear() + i) + "");
+        }
+    }
+
+    private void setMes(LocalDate date) {
+        int i = date.getMonthValue();
+        while (i <= 12) {
+            jcMes.addItem(i + "");
+            i++;
+        }
+    }
+
+    private void setDias(LocalDate date) {
+        int i = date.getDayOfMonth();
+        System.out.println(date.withDayOfMonth(date.lengthOfMonth()).getDayOfMonth());
+        while (i <= date.withDayOfMonth(date.lengthOfMonth()).getDayOfMonth()) {
+            jcDia.addItem(i + "");
+            i++;
+        }
+
     }
 
     /**
@@ -39,58 +112,554 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        listaAfil = new java.awt.List();
-        label1 = new java.awt.Label();
+        jFrame1 = new javax.swing.JFrame();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLafiliadoNom = new javax.swing.JLabel();
+        jPrestador = new javax.swing.JPanel();
+        jcAño = new javax.swing.JComboBox<>();
+        jcMes = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jcDia = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLTm = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLTT = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLdia = new javax.swing.JLabel();
+        jrTurnoTarde = new javax.swing.JRadioButton();
+        jrTurnoMañana = new javax.swing.JRadioButton();
+        lIdPrestador = new java.awt.List();
+        lNomPrestadpr = new java.awt.List();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel17 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLError = new javax.swing.JLabel();
+        jTdniAfiliado = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setClosable(true);
         setTitle("Administracion de ordenes");
 
-        listaAfil.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText("nueva orden");
+
+        jLabel13.setText("buscar afiliado       dni");
+
+        jLafiliadoNom.setText("nombre:");
+
+        jcAño.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaAfilActionPerformed(evt);
+                jcAñoActionPerformed(evt);
             }
         });
 
-        label1.setText("lista de afiliado");
+        jcMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcMesActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("dia");
+
+        jLabel5.setText("mes");
+
+        jLabel6.setText("año");
+
+        jButton1.setText("buscar disponible");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("especialidad:");
+
+        jComboBoxEspecialidades.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxEspecialidadesItemStateChanged(evt);
+            }
+        });
+        jComboBoxEspecialidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEspecialidadesActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("fecha de la orden");
+
+        jcDia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcDiaItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPrestadorLayout = new javax.swing.GroupLayout(jPrestador);
+        jPrestador.setLayout(jPrestadorLayout);
+        jPrestadorLayout.setHorizontalGroup(
+            jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPrestadorLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPrestadorLayout.createSequentialGroup()
+                        .addGroup(jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPrestadorLayout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(jPrestadorLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)))
+                        .addGroup(jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPrestadorLayout.createSequentialGroup()
+                                .addComponent(jcDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcAño, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxEspecialidades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(19, 19, 19))
+        );
+        jPrestadorLayout.setVerticalGroup(
+            jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPrestadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jcDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPrestadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel10.setText("turno terde :");
+
+        jLTm.setText("horario mañana");
+
+        jLabel7.setText("disponibiliadad");
+
+        jLTT.setText("horario tarde");
+
+        jLabel8.setText("turno mañana:");
+
+        jrTurnoTarde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrTurnoTardeActionPerformed(evt);
+            }
+        });
+
+        jrTurnoMañana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrTurnoMañanaActionPerformed(evt);
+            }
+        });
+
+        lIdPrestador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lIdPrestador.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdPrestador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lIdPrestadorActionPerformed(evt);
+            }
+        });
+
+        lNomPrestadpr.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLdia))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLTm))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLTT)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jrTurnoTarde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jrTurnoMañana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)))
+                .addGap(0, 0, 0))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lNomPrestadpr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLdia, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLTm, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jrTurnoMañana))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLTT, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jrTurnoTarde, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(lIdPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jRadioButton1.setText("efectivo");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("credito");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("metodo de pago");
+
+        jButton2.setText("generar");
+        jButton2.setActionCommand("generar ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTdniAfiliado.setToolTipText("ingrese el dni del afiliado");
+
+        jButton3.setText("buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaAfil, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(829, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)))
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(89, 89, 89)
+                                .addComponent(jTdniAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(129, 129, 129)
+                                .addComponent(jRadioButton1)
+                                .addGap(118, 118, 118)
+                                .addComponent(jRadioButton2))
+                            .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLafiliadoNom, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(47, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(listaAfil, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTdniAfiliado)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel13))
+                .addGap(21, 21, 21)
+                .addComponent(jLafiliadoNom)
+                .addGap(18, 18, 18)
+                .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jLabel17)
+                    .addComponent(jRadioButton1))
+                .addGap(18, 18, 18)
+                .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(159, 159, 159))
         );
-
-        listaAfil.getAccessibleContext().setAccessibleName("listaAfil");
-        listaAfil.getAccessibleContext().setAccessibleDescription("");
-        label1.getAccessibleContext().setAccessibleName("lbLista");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listaAfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaAfilActionPerformed
+    private void llenarDesplegableEspecialidades() {
+        ArrayList<Especialidad> especialidades = new ArrayList<>();
+        EspecialidadData ed = new EspecialidadData();
+        especialidades = ed.obtenerEspecialidades();
+        jComboBoxEspecialidades.removeAllItems();
+        for (Especialidad e : especialidades) {
+            jComboBoxEspecialidades.addItem(e);
+        }
+    }
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        this.jRadioButton2.setSelected(false);
+        this.efectivo = true;
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (this.jTdniAfiliado.getText().length() == 8) {
+            this.afiliado = AfiliadoData.obtenerAfiliadoDni(Integer.parseInt(this.jTdniAfiliado.getText()));
+            if (this.afiliado != null) {
+                this.jLafiliadoNom.setText("nombre: " + this.afiliado.getNombre());
+                this.jLError.setText("");
+                for (Component component : getComponents(this.jPrestador)) {
+                    component.setEnabled(true);
+                }
+            } else {
+                this.jLError.setText("el afiliado para este dni no existe o no esta activo");
+                this.jLafiliadoNom.setText("nombre: ");
+            }
+        } else {
+            this.jLError.setText("ingrese un dni valido");
+            this.jLafiliadoNom.setText("nombre: ");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        this.jRadioButton1.setSelected(false);
+        this.efectivo = false;
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jrTurnoTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrTurnoTardeActionPerformed
+        this.jrTurnoMañana.setSelected(false);
+        this.horario = this.turnoTarde;
+    }//GEN-LAST:event_jrTurnoTardeActionPerformed
+
+    private void jrTurnoMañanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrTurnoMañanaActionPerformed
+        this.jrTurnoTarde.setSelected(false);
+        this.horario = this.turnoMañana;
+    }//GEN-LAST:event_jrTurnoMañanaActionPerformed
+
+    private void jcDiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcDiaItemStateChanged
+        if (this.habilitar) {
+            if (jcDia.getSelectedIndex() > -1) {
+                this.fechaAtencion = LocalDate.of(this.fechaAtencion.getYear(), this.fechaAtencion.getMonthValue(), Integer.parseInt(this.jcDia.getSelectedItem().toString()));
+            }
+        }
+    }//GEN-LAST:event_jcDiaItemStateChanged
+
+    private void jComboBoxEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_listaAfilActionPerformed
+    }//GEN-LAST:event_jComboBoxEspecialidadesActionPerformed
+
+    private void jComboBoxEspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxEspecialidadesItemStateChanged
+
+    }//GEN-LAST:event_jComboBoxEspecialidadesItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (this.lIdPrestador.getItemCount() > 0) {
+            this.lIdPrestador.removeAll();
+            this.lNomPrestadpr.removeAll();
+        }
+        this.prestadores = PrestadorData.obtenerPrestadoresDisponibles(this.fechaAtencion);
+        System.out.println(this.prestadores.size());
+        for (Prestador prestador : this.prestadores) {
+            if (prestador.getEspecialidad().getNombre().toString().equals(this.jComboBoxEspecialidades.getSelectedItem().toString())) {
+                this.lIdPrestador.add(prestador.getId() + "");
+                this.lNomPrestadpr.add(prestador.getNombre());
+            }
+        }
+
+        this.jLdia.setText(this.fechaAtencion.getDayOfWeek() + "  " + this.fechaAtencion);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jcMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcMesActionPerformed
+        if (this.habilitar) {
+            if (this.fechaAtencion.getYear() == this.fechaCreacion.getYear() && Integer.parseInt(this.jcMes.getSelectedItem().toString()) == this.fechaCreacion.getMonthValue()) {
+                this.fechaAtencion = LocalDate.of(this.fechaAtencion.getYear(), Integer.parseInt(this.jcMes.getSelectedItem().toString()), this.fechaCreacion.getDayOfMonth());
+            } else {
+                this.fechaAtencion = LocalDate.of(this.fechaAtencion.getYear(), Integer.parseInt(this.jcMes.getSelectedItem().toString()), 1);
+            }
+            jcDia.removeAllItems();
+            setDias(this.fechaAtencion);
+        }
+    }//GEN-LAST:event_jcMesActionPerformed
+
+    private void jcAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcAñoActionPerformed
+
+        if (this.habilitar) {
+            if (this.fechaCreacion.getYear() == Integer.parseInt(jcAño.getSelectedItem().toString())) {
+                this.fechaAtencion = this.fechaCreacion;
+            } else {
+                this.fechaAtencion = LocalDate.of(Integer.parseInt(this.jcAño.getSelectedItem().toString()), 1, 1);
+            }
+            this.habilitar = false;
+            jcMes.removeAllItems();
+            setMes(this.fechaAtencion);
+            jcDia.removeAllItems();
+            setDias(this.fechaAtencion);
+            this.habilitar = true;
+        }
+    }//GEN-LAST:event_jcAñoActionPerformed
+
+    private void lIdPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lIdPrestadorActionPerformed
+        this.horarios = HorarioData.obtenerHorariosDisponible(Integer.parseInt(this.lIdPrestador.getItem(this.lIdPrestador.getSelectedIndex())), this.fechaAtencion);
+        LocalTime medioDia = LocalTime.of(12, 00);
+        if (this.horarios != null) {
+            if (this.horarios.get(0).getHoraFin().isAfter(medioDia)) {
+                this.jLTT.setText("de: " + this.horarios.get(0).getHoraInicio().getHour() + "hasta: " + this.horarios.get(0).getHoraFin().getHour());
+                this.jrTurnoTarde.setEnabled(true);
+                this.turnoTarde = this.horarios.get(0);
+            } else {
+                this.jLTm.setText("de: " + this.horarios.get(0).getHoraInicio().getHour() + "hasta: " + this.horarios.get(0).getHoraFin().getHour());
+                this.jrTurnoMañana.setEnabled(true);
+                this.turnoMañana = this.horarios.get(0);
+            }
+            if (this.horarios.size() > 2) {
+                if (this.horarios.get(1).getHoraFin().isAfter(medioDia)) {
+                    this.jLTT.setText("de: " + this.horarios.get(0).getHoraInicio().getHour() + "hasta: " + this.horarios.get(0).getHoraFin().getHour());
+                    this.jrTurnoTarde.setEnabled(true);
+                    this.turnoTarde = this.horarios.get(0);
+                } else {
+                    this.jLTm.setText("de: " + this.horarios.get(0).getHoraInicio().getHour() + "hasta: " + this.horarios.get(0).getHoraFin().getHour());
+                    this.jrTurnoMañana.setEnabled(true);
+                    this.turnoMañana = this.horarios.get(0);
+                }
+            }
+        }
+    }//GEN-LAST:event_lIdPrestadorActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        OrdenData.altaOrden(
+                new Orden(
+                        this.afiliado,
+                        this.horario,
+                        this.fechaAtencion,
+                        this.fechaCreacion,
+                        this.efectivo,
+                        true
+                )
+        );
+        limpiarTodo();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private Component[] getComponents(Component container) {
+        ArrayList<Component> list = null;
+
+        try {
+            list = new ArrayList<Component>(Arrays.asList(
+                    ((Container) container).getComponents()));
+            for (int index = 0; index < list.size(); index++) {
+                for (Component currentComponent : getComponents(list.get(index))) {
+                    list.add(currentComponent);
+                }
+            }
+        } catch (ClassCastException e) {
+            list = new ArrayList<Component>();
+        }
+
+        return list.toArray(new Component[list.size()]);
+    }
 
     @Override
-    public void actualizarValores(){
+    public void actualizarValores() {
         System.out.println("Se actualizo la vista de Ordenes");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label label1;
-    private java.awt.List listaAfil;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
+    private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLError;
+    private javax.swing.JLabel jLTT;
+    private javax.swing.JLabel jLTm;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLafiliadoNom;
+    private javax.swing.JLabel jLdia;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPrestador;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JTextField jTdniAfiliado;
+    private javax.swing.JComboBox<String> jcAño;
+    private javax.swing.JComboBox<String> jcDia;
+    private javax.swing.JComboBox<String> jcMes;
+    private javax.swing.JRadioButton jrTurnoMañana;
+    private javax.swing.JRadioButton jrTurnoTarde;
+    private java.awt.List lIdPrestador;
+    private java.awt.List lNomPrestadpr;
     // End of variables declaration//GEN-END:variables
 }

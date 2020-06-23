@@ -5,6 +5,7 @@ public class Afiliado {
     private int dni;
     private String nombre;
     private boolean activo;
+   
     
     public Afiliado(int id, int dni, String nombre, boolean activo){
         this.id = id;
@@ -18,7 +19,7 @@ public class Afiliado {
         this.nombre = nombre;
         this.activo = activo;
     }
-
+   
     public int getId() {
         return id;
     }

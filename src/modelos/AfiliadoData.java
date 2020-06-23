@@ -24,10 +24,10 @@ public class AfiliadoData {
         return afiliado;
     }
 
-    public Afiliado obtenerAfiliado(int id) {
+    static public Afiliado obtenerAfiliado(int id) {
         Afiliado afiliado = null;
         try {
-            String sql = "SELECT * FROM afiliados WHERE id = " + id + ";";
+            String sql = "SELECT * FROM afiliados WHERE id ="+ id + ";";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -41,11 +41,28 @@ public class AfiliadoData {
         return afiliado;
     }
 
-    public ArrayList<Afiliado> obtenerAfiliados(boolean mostrarDeshabilitados) {
+    static public Afiliado obtenerAfiliadoDni(int dni) {
+        Afiliado afiliado = null;
+        try {
+            String sql = "SELECT * FROM afiliados WHERE dni ="+ dni + ";";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                afiliado = new Afiliado(rs.getInt("id"), rs.getInt("dni"), rs.getString("nombre"), rs.getBoolean("activo"));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener afiliado: " + e.getMessage());
+        }
+        return afiliado;
+    }
+    
+    static public ArrayList<Afiliado> obtenerAfiliados(boolean mostrarDeshabilitados) {
         ArrayList<Afiliado> resultados = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM afiliados WHERE activo = " + (mostrarDeshabilitados ? "0 OR 1" : "1") + ";";;
+            String sql = "SELECT * FROM afiliados WHERE activo = " + (mostrarDeshabilitados ? "0 OR 1" : "1") + ";";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 

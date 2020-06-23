@@ -8,7 +8,7 @@ import java.util.*;
 
 public class OrdenData {
     
-    public Orden altaOrden(Orden orden) {
+    static public Orden altaOrden(Orden orden) {
         try {
             String sql = "INSERT INTO ordenes (idAfiliado, idHorario, fechaAtencion, fechaCreacion, efectivo, activa) VALUES ('"
                     + orden.getAfiliado().getId() + "', '" 
