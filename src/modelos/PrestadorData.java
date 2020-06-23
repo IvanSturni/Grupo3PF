@@ -91,25 +91,32 @@ public class PrestadorData {
         
         try {
             String sql;
-            /*sql = "SELECT DISTINCT p.* "
-                    + "FROM prestadores p "
-                    + "JOIN horarios h ON p.id = h.idPrestador "
-                    + "WHERE h.dia = " + fecha.getDayOfWeek().getValue()
-                    + " AND p.idEspecialidad = " + especialidad.getId()
-                    + " AND h.id NOT IN (SELECT ho.id "
-                    + "                 FROM ordenes o "
-                    + "                 JOIN horarios ho ON o.idHorario = ho.id "
-                    + "                 WHERE o.fechaAtencion = '" + fecha.toString() + "'";*/
-            sql =   "SELECT DISTINCT p.* \n" +
-                    "FROM prestadores p \n" +
-                    "JOIN horarios h ON p.id = h.idPrestador \n" +
-                    "WHERE h.dia = "+fecha.getDayOfWeek().getValue()+"\n" +
-                    "AND p.idEspecialidad = "+especialidad.getId()+"\n" +
-                    "AND h.id NOT IN (SELECT ho.id \n" +
-                    "              FROM ordenes o \n" +
-                    "              JOIN horarios ho ON o.idHorario = ho.id \n" +
-                    "              WHERE o.fechaAtencion = '"+fecha.toString()+"')";
-            System.out.println(sql);
+             sql = "SELECT id,dni,nombre,idEspecialidad,activo from prestadores\n" 
+                    +"INNER JOIN(\n" 
+                    +"SELECT prestador\n" 
+                    +"FROM(\n" 
+                    +"    SELECT fechaAtencion,prestador,nombre as especialidad\n" 
+                    +"    from(\n" +"        SELECT fechaAtencion,id as prestador, idEspecialidad\n" 
+                    +"            from (\n" 
+                    +"                SELECT idPrestador,fechaAtencion \n" 
+                    +"                from (SELECT * FROM ordenes WHERE fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date)) as orde\n" 
+                    +"                INNER JOIN ( select * from horarios WHERE dia ="+fecha.getDayOfWeek().getValue() +") as ho\n" 
+                    +"                on ho.id = orde.idHorario\n" 
+                    +"            )as trabajos\n" 
+                    +"        RIGHT JOIN (\n" 
+                    +"        			SELECT prestadores.id,prestadores.idEspecialidad FROM prestadores\n"
+                    +"            		Inner JOIN horarios\n" 
+                    +"            		ON horarios.idPrestador = prestadores.id\n" 
+                    +"        		   ) AS pres\n" 
+                    +"        on pres.id = trabajos.idPrestador\n" 
+                    +"    )as calendario\n" 
+                    +"    INNER JOIN especialidades \n" 
+                    +"    on especialidades.id = calendario.idEspecialidad\n" 
+                    +") as tabla\n" 
+                    +"GROUP BY tabla.prestador\n" 
+                    +"HAVING COUNT(prestador)<2) as disponibles\n" 
+                    +"on disponibles.prestador = prestadores.id\n" 
+                    +"WHERE activo = 1";
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
             

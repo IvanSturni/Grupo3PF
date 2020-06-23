@@ -531,7 +531,6 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         //Prestador p = pd.obtenerPrestador(Integer.valueOf(lIdPrestador.getSelectedItem()));
         //horarios = hd.obtenerHorariosDiaPrestador(p.getId(), fechaAtencion.getDayOfWeek().getValue());
         //LocalTime medioDia = LocalTime.of(12, 00);
-        System.out.println("aaaaaaaaaaaaaaaaaaa");
         if (this.horarios != null) {
             lHorariosPrestador.removeAll();
             lIdHorario.removeAll();

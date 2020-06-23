@@ -41,7 +41,7 @@ FROM(
 GROUP BY tabla.prestador
 HAVING COUNT(prestador)<2
 
-"todos los prestadores con turnos disponibles para un dia que esten activos"
+"todos los prestadores con turnos disponibles para un dia que esten activos y que tengan horarios disponibles"
 
 SELECT id,dni,nombre,idEspecialidad,activo from prestadores
 INNER JOIN(
@@ -53,11 +53,15 @@ FROM(
             from (
                 SELECT idPrestador,fechaAtencion 
                 from (SELECT * FROM ordenes WHERE fechaAtencion = cast('2020-03-03' as date)) as orde
-                INNER JOIN horarios
-                on horarios.id = orde.idHorario
+                INNER JOIN ( select * from horarios WHERE dia = 1) as ho
+                on ho.id = orde.idHorario
             )as trabajos
-        RIGHT JOIN prestadores
-        on prestadores.id = trabajos.idPrestador
+        RIGHT JOIN (
+        			SELECT prestadores.id,prestadores.idEspecialidad FROM prestadores
+            		Inner JOIN horarios
+            		ON horarios.idPrestador = prestadores.id
+        		   ) AS pres
+        on pres.id = trabajos.idPrestador
     )as calendario
     INNER JOIN especialidades 
     on especialidades.id = calendario.idEspecialidad
@@ -66,3 +70,31 @@ GROUP BY tabla.prestador
 HAVING COUNT(prestador)<2) as disponibles
 on disponibles.prestador = prestadores.id
 WHERE activo = 1
+
+
+ sql = "SELECT id,dni,nombre,idEspecialidad,activo from prestadores\n" 
+                    +"INNER JOIN(\n" 
+                    +"SELECT prestador\n" 
+                    +"FROM(\n" 
+                    +"    SELECT fechaAtencion,prestador,nombre as especialidad\n" 
+                    +"    from(\n" +"        SELECT fechaAtencion,id as prestador, idEspecialidad\n" 
+                    +"            from (\n" 
+                    +"                SELECT idPrestador,fechaAtencion \n" 
+                    +"                from (SELECT * FROM ordenes WHERE fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date)) as orde\n" 
+                    +"                INNER JOIN ( select * from horarios WHERE dia ="+fecha.getDayOfWeek().getValue() +") as ho\n" 
+                    +"                on ho.id = orde.idHorario\n" 
+                    +"            )as trabajos\n" 
+                    +"        RIGHT JOIN (\n" 
+                    +"        			SELECT prestadores.id,prestadores.idEspecialidad FROM prestadores\n"
+                    +"            		Inner JOIN horarios\n" 
+                    +"            		ON horarios.idPrestador = prestadores.id\n" 
+                    +"        		   ) AS pres\n" 
+                    +"        on pres.id = trabajos.idPrestador\n" 
+                    +"    )as calendario\n" 
+                    +"    INNER JOIN especialidades \n" 
+                    +"    on especialidades.id = calendario.idEspecialidad\n" 
+                    +") as tabla\n" 
+                    +"GROUP BY tabla.prestador\n" 
+                    +"HAVING COUNT(prestador)<2) as disponibles\n" 
+                    +"on disponibles.prestador = prestadores.id\n" 
+                    +"WHERE activo = 1";
