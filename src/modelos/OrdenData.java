@@ -56,13 +56,13 @@ public class OrdenData {
         return orden;
     }
     
-    static public ArrayList<Orden> obtenerOrdenes() {
+    static public ArrayList<Orden> obtenerOrdenes(boolean mostrarDeshabilitados) {
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT * FROM ordenes";
+            String sql = "SELECT * FROM ordenes " + (mostrarDeshabilitados ? ";" : " WHERE activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -83,13 +83,14 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestadorFecha(Afiliado afiliado, Prestador prestador, LocalDate fecha){
+    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestadorFecha(Afiliado afiliado, Prestador prestador, LocalDate fecha, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE o.idAfiliado = " + afiliado.getId() + " AND h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + "';";
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE o.idAfiliado = " + afiliado.getId() + " "
+                    + "AND h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + (mostrarDeshabilitados ? "';" : "' AND o.activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -110,13 +111,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesPrestador(Prestador prestador){
+    public ArrayList<Orden> obtenerOrdenesPrestador(Prestador prestador, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId();
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + (mostrarDeshabilitados ? ";" : " AND o.activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -137,13 +138,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesPrestadorFecha(Prestador prestador, LocalDate fecha){
+    public ArrayList<Orden> obtenerOrdenesPrestadorFecha(Prestador prestador, LocalDate fecha, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + "';";
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + (mostrarDeshabilitados ? "';" : "' AND o.activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -164,13 +165,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestador(Afiliado afiliado, Prestador prestador){
+    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestador(Afiliado afiliado, Prestador prestador, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.idAfiliado = " + afiliado.getId() + ";";
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.idAfiliado = " + afiliado.getId() + (mostrarDeshabilitados ? ";" : " AND o.activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -191,13 +192,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesAfiliado(Afiliado afiliado){
+    public ArrayList<Orden> obtenerOrdenesAfiliado(Afiliado afiliado, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId();
+            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId() + (mostrarDeshabilitados ? ";" : " AND activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -218,13 +219,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesAfiliadoFecha(Afiliado afiliado, LocalDate fecha){
+    public ArrayList<Orden> obtenerOrdenesAfiliadoFecha(Afiliado afiliado, LocalDate fecha, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId() + " AND fechaAtencion = '" + fecha + "';";
+            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId() + " AND fechaAtencion = '" + fecha + "'" + (mostrarDeshabilitados ? ";" : " AND activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -245,13 +246,13 @@ public class OrdenData {
         return resultados;
     }
     
-    public ArrayList<Orden> obtenerOrdenesFecha(LocalDate fecha){
+    public ArrayList<Orden> obtenerOrdenesFecha(LocalDate fecha, boolean mostrarDeshabilitados){
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
 
         try {
-            String sql = "SELECT * FROM ordenes WHERE fechaAtencion = '" + fecha + "';";
+            String sql = "SELECT * FROM ordenes WHERE fechaAtencion = '" + fecha + "'" + (mostrarDeshabilitados ? ";" : " AND activa = 1;");
             Statement s = Conexion.get().createStatement();
             ResultSet rs = s.executeQuery(sql);
 

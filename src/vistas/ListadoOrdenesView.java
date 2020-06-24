@@ -19,6 +19,7 @@ import modelos.*;
  */
 public class ListadoOrdenesView extends javax.swing.JInternalFrame implements View{
     DefaultTableModel tableModel;
+    ArrayList<Orden> tablaMostrada;
     /**
      * Creates new form ListadoOrdenesView
      */
@@ -57,6 +58,8 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         jLabel5 = new javax.swing.JLabel();
         jComboBoxPrestador = new javax.swing.JComboBox<>();
         jCheckBoxFiltroFecha = new javax.swing.JCheckBox();
+        jCheckBoxInctivas = new javax.swing.JCheckBox();
+        jButtonDesactivar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Listado de ordenes");
@@ -72,6 +75,11 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableOrdenesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableOrdenes);
 
         jLabel1.setText("Dia:");
@@ -124,37 +132,57 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
             }
         });
 
+        jCheckBoxInctivas.setText("Inactivas");
+        jCheckBoxInctivas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                actualizarTabla(evt);
+            }
+        });
+
+        jButtonDesactivar.setText("Desactivar orden seleccionada");
+        jButtonDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDesactivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jCheckBoxFiltroFecha)
-                            .addGap(98, 98, 98)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCheckBoxFiltroFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jCheckBoxInctivas, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jButtonDesactivar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -174,10 +202,13 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
                     .addComponent(jComboBoxAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBoxPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addComponent(jComboBoxPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxInctivas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonDesactivar)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,6 +229,27 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         llenarDesplegableDias();
     }//GEN-LAST:event_actualizarDias
 
+    private void jButtonDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesactivarActionPerformed
+        Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
+        ordenSeleccionada.setActiva(!ordenSeleccionada.isActiva());
+        OrdenData.actualizarOrden(ordenSeleccionada);
+        
+        if (ordenSeleccionada.isActiva())
+            jButtonDesactivar.setText("Desactivar orden seleccionada");
+        else
+            jButtonDesactivar.setText("Activar orden seleccionada");
+    }//GEN-LAST:event_jButtonDesactivarActionPerformed
+
+    private void jTableOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOrdenesMouseClicked
+        if (jTableOrdenes.getSelectedRow() == -1)
+            return;
+        Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
+        if (ordenSeleccionada.isActiva())
+            jButtonDesactivar.setText("Desactivar orden seleccionada");
+        else
+            jButtonDesactivar.setText("Activar orden seleccionada");
+    }//GEN-LAST:event_jTableOrdenesMouseClicked
+
     private void armarEncabezados(){
         ArrayList<Object> ob = new ArrayList<Object>();
         ob.add("Afiliado");
@@ -205,6 +257,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         ob.add("Fecha");
         ob.add("Hora");
         ob.add("Pago");
+        ob.add("Activa");
         
         for(Object o : ob){
             tableModel.addColumn(o);
@@ -229,57 +282,56 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
             fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 28);
         }
         OrdenData od = new OrdenData();
-        ArrayList<Orden> tablaMostrada = new ArrayList<>();
+        tablaMostrada = new ArrayList<>();
         
+        boolean mostrarInactivas = jCheckBoxInctivas.isSelected();
         boolean filtroFecha = jCheckBoxFiltroFecha.isSelected();
         boolean filtroAfiliado = afiliado.getId() != -1;
         boolean filtroPrestador = prestador.getId() != -1;
         
         if (!filtroFecha && !filtroAfiliado && !filtroPrestador){
             // Sin filtro
-            tablaMostrada = od.obtenerOrdenes();
+            tablaMostrada = od.obtenerOrdenes(mostrarInactivas);
         } else if (filtroFecha && filtroAfiliado && filtroPrestador){
             // Todos los filtros
-            tablaMostrada = od.obtenerOrdenesAfiliadoPrestadorFecha(afiliado, prestador, fecha);
+            tablaMostrada = od.obtenerOrdenesAfiliadoPrestadorFecha(afiliado, prestador, fecha, mostrarInactivas);
         } else if (!filtroFecha){
             if (filtroAfiliado && filtroPrestador){
                 // Filtrar por afiliado y prestador
-                tablaMostrada = od.obtenerOrdenesAfiliadoPrestador(afiliado, prestador);
+                tablaMostrada = od.obtenerOrdenesAfiliadoPrestador(afiliado, prestador, mostrarInactivas);
             } else if (filtroAfiliado && !filtroPrestador){
                 // Filtrar solo por afiliado
-                tablaMostrada = od.obtenerOrdenesAfiliado(afiliado);
+                tablaMostrada = od.obtenerOrdenesAfiliado(afiliado, mostrarInactivas);
             } else {
                 // Filtrar solo por prestador   
-                tablaMostrada = od.obtenerOrdenesPrestador(prestador);
+                tablaMostrada = od.obtenerOrdenesPrestador(prestador, mostrarInactivas);
             }
         } else if (!filtroAfiliado){
             if (filtroFecha && filtroPrestador){
                 // Filtrar por fecha y prestador
-                tablaMostrada = od.obtenerOrdenesPrestadorFecha(prestador, fecha);
+                tablaMostrada = od.obtenerOrdenesPrestadorFecha(prestador, fecha, mostrarInactivas);
             } else if (filtroFecha && !filtroPrestador){
                 // Filtrar solo por fecha
-                tablaMostrada = od.obtenerOrdenesFecha(fecha);
+                tablaMostrada = od.obtenerOrdenesFecha(fecha, mostrarInactivas);
             } else {
                 // Filtrar solo por prestador
-                tablaMostrada = od.obtenerOrdenesPrestador(prestador);
+                tablaMostrada = od.obtenerOrdenesPrestador(prestador, mostrarInactivas);
             }
         } else if (!filtroPrestador){
             if (filtroFecha && filtroAfiliado){
                 // Filtrar por fecha y afiliado
-                tablaMostrada = od.obtenerOrdenesAfiliadoFecha(afiliado, fecha);
+                tablaMostrada = od.obtenerOrdenesAfiliadoFecha(afiliado, fecha, mostrarInactivas);
             } else if (filtroFecha && !filtroAfiliado){
                 // Filtrar solo por fecha
-                tablaMostrada = od.obtenerOrdenesFecha(fecha);
+                tablaMostrada = od.obtenerOrdenesFecha(fecha, mostrarInactivas);
             } else {
                 // Filtrar solo por afiliado
-                tablaMostrada = od.obtenerOrdenesAfiliado(afiliado);
+                tablaMostrada = od.obtenerOrdenesAfiliado(afiliado, mostrarInactivas);
             }
-        } else {
-            System.out.println("EEEEEEEEERRRRRROOOOOOOOORRRRRRRR");
         }
         
         for (Orden o : tablaMostrada)
-            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), fecha.toString(), o.getHorario().toString(), o.isEfectivo() ? "Efectivo" : "Contado"});
+            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), fecha.toString(), o.getHorario().toString(), o.isEfectivo() ? "Efectivo" : "Contado", o.isActiva() ? "Si" : "No"});
     }
     
     private void llenarDesplegableAfiliados(){
@@ -365,7 +417,9 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
         System.out.println("Se actualizo la vista de Listado de ordenes");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonDesactivar;
     private javax.swing.JCheckBox jCheckBoxFiltroFecha;
+    private javax.swing.JCheckBox jCheckBoxInctivas;
     private javax.swing.JComboBox<Afiliado> jComboBoxAfiliado;
     private javax.swing.JComboBox<String> jComboBoxAño;
     private javax.swing.JComboBox<String> jComboBoxDia;

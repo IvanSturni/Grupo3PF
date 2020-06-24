@@ -367,6 +367,38 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         if (tablaMostrada.size() >= 2){
             jLabelMensaje.setText("Error al crear: el prestador ya tiene demasiados horarios el mismo dia");
         } else {
+            if (tablaMostrada.size() == 1){
+                Horario existente = tablaMostrada.get(0);
+                LocalTime existenteDesde = existente.getHoraInicio();
+                LocalTime existenteHasta = existente.getHoraFin();
+                System.out.println("---------------------------------------------- " + (hasta.getHour() - desde.getHour()));
+                
+                // Si el nuevo horario se encuentra ADENTRO del viejo
+                if (desde.compareTo(existenteHasta) <= 0 && desde.compareTo(existenteDesde) >= 0 || hasta.compareTo(existenteDesde) >= 0 && hasta.compareTo(existenteHasta) <= 0){
+                    jLabelMensaje.setText("Error al crear: el horario ingresado se encuentra dentro del rango de un horario existente");
+                    return;
+                }
+                
+                // Si el nuevo horario ENCIERRA al viejo
+                if (desde.compareTo(existenteDesde) <= 0 && hasta.compareTo(existenteHasta) >= 0){
+                    jLabelMensaje.setText("Error al crear: el horario ingresado encierra a un horario existente");
+                    return;
+                }
+                
+                // Si la hora final es menor a la hora de inicio
+                if (hasta.compareTo(desde) <= 0){
+                    jLabelMensaje.setText("Error al crear: la hora final no puede ser menor o igual a la hora de inicio");
+                    return;
+                }
+                
+                // Si el rango horario seleccionado es menor a 1 hora
+                if (hasta.getHour() - desde.getHour() <= 1){
+                    if (hasta.getMinute() + 60 - desde.getMinute() < 60 || hasta.getHour() == desde.getHour()){
+                        jLabelMensaje.setText("Error al crear: los horarios deben abarcar un minimo de 1 hora");
+                        return;
+                    }
+                }
+            }
             Horario h = hd.altaHorario(new Horario(pd.obtenerPrestador(p.getId()), DayOfWeek.of(dia), desde, hasta));
             jLabelMensaje.setText("Horario creado correctamente");
             llenarTabla(p, dia);
@@ -452,7 +484,7 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         if (tf.getText().equals(""))
             return;
         if (Integer.parseInt(tf.getText()) > 24)
-            tf.setText("24");
+            tf.setText("23");
     }//GEN-LAST:event_validarHora
 
     private void validarMinuto(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_validarMinuto
@@ -460,7 +492,7 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         if (tf.getText().equals(""))
             return;
         if (Integer.parseInt(tf.getText()) > 60)
-            tf.setText("60");
+            tf.setText("59");
     }//GEN-LAST:event_validarMinuto
     
     private void llenarTabla(Prestador p, int dia){
@@ -514,14 +546,38 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
         
         jLabelEdicion.setText(textoEdicion);
         for (Horario h : tablaMostrada){
-            tableModel.addRow(new Object[]{h.getDia().name(), h.getHoraInicio(), h.getHoraFin(), h.getPrestador().getNombre()});
+            String diaTraducido = "";
+            switch(h.getDia().getValue()){
+                case 1: 
+                    diaTraducido = "Lunes";
+                    break;
+                case 2:
+                    diaTraducido = "Martes";
+                    break;
+                case 3:
+                    diaTraducido = "Miércoles";
+                    break;
+                case 4:
+                    diaTraducido = "Jueves";
+                    break;
+                case 5:
+                    diaTraducido = "Viernes";
+                    break;
+                case 6:
+                    diaTraducido = "Sábado";
+                    break;
+                case 7:
+                    diaTraducido = "Domingo";
+                    break;
+            }
+            tableModel.addRow(new Object[]{diaTraducido, h.getHoraInicio(), h.getHoraFin(), h.getPrestador().getNombre()});
         }
     }
     
     private void llenarDesplegablePrestadores(){
         ArrayList<Prestador> prestadores = new ArrayList<>();
         PrestadorData pd = new PrestadorData();
-        prestadores = pd.obtenerPrestadores(true);
+        prestadores = pd.obtenerPrestadores(false);
         
         jComboBoxPrestadores.removeAllItems();
         Prestador placeholder = new Prestador(0000000, "Todos seleccionados", new Especialidad("NULL"), true);
