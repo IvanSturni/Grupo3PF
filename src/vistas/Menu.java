@@ -30,7 +30,8 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         for(Orden orden :  OrdenData.obtenerOrdenes(true) ){
-            if(orden.getFechaAtencion().isAfter(LocalDate.now())){
+            System.out.println("asda");
+            if(orden.getFechaAtencion().isBefore(LocalDate.now())){
                 orden.setActiva(false);
                 OrdenData.actualizarOrden(orden);
             }

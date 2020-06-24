@@ -254,7 +254,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
         ArrayList<Object> ob = new ArrayList<Object>();
         ob.add("Afiliado");
         ob.add("Prestador");
-        ob.add("Fecha");
+        ob.add("Fecha Alta");
         ob.add("Hora");
         ob.add("Pago");
         ob.add("Activa");
