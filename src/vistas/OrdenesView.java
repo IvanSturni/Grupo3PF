@@ -20,7 +20,7 @@ import modelos.*;
  *
  * @author Eourist
  */
-public class OrdenesView extends javax.swing.JInternalFrame implements View {
+public class OrdenesView extends javax.swing.JInternalFrame{
 
     ArrayList<Prestador> prestadores;
     Prestador prestador;
@@ -655,11 +655,6 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         }
 
         return list.toArray(new Component[list.size()]);
-    }
-
-    @Override
-    public void actualizarValores() {
-        System.out.println("Se actualizo la vista de Ordenes");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

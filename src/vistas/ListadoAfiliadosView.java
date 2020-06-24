@@ -14,7 +14,7 @@ import modelos.*;
  *
  * @author Eourist
  */
-public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements View{
+public class ListadoAfiliadosView extends javax.swing.JInternalFrame{
     AfiliadoData ad;
     DefaultTableModel tableModel;
     ArrayList<Afiliado> tablaMostrada;
@@ -87,8 +87,8 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
                 .addContainerGap()
                 .addComponent(jCheckBoxDeshabilitados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,13 +126,6 @@ public class ListadoAfiliadosView extends javax.swing.JInternalFrame implements 
             tableModel.addColumn(o);
         }
         jtAfiliados.setModel(tableModel);
-    }
-
-
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Listado de afiliados");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBoxDeshabilitados;

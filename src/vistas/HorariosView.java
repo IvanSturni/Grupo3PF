@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  *
  * @author Eourist
  */
-public class HorariosView extends javax.swing.JInternalFrame implements View{
+public class HorariosView extends javax.swing.JInternalFrame{
     DefaultTableModel tableModel;
     ArrayList<Horario> tablaMostrada;
     /**
@@ -610,11 +610,6 @@ public class HorariosView extends javax.swing.JInternalFrame implements View{
             tableModel.addColumn(o);
         }
         jTableHorarios.setModel(tableModel);
-    }
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Horarios");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEliminar;

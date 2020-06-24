@@ -17,7 +17,7 @@ import modelos.*;
  *
  * @author Eourist
  */
-public class ListadoOrdenesView extends javax.swing.JInternalFrame implements View{
+public class ListadoOrdenesView extends javax.swing.JInternalFrame{
     DefaultTableModel tableModel;
     ArrayList<Orden> tablaMostrada;
     /**
@@ -410,11 +410,6 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame implements Vi
             jComboBoxAño.addItem(String.valueOf(i));
         }
         jComboBoxAño.setSelectedIndex(2);
-    }
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Listado de ordenes");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDesactivar;

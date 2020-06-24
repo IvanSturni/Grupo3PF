@@ -13,7 +13,7 @@ import modelos.EspecialidadData;
  *
  * @author Eourist
  */
-public class EspecialidadesView extends javax.swing.JInternalFrame implements View{
+public class EspecialidadesView extends javax.swing.JInternalFrame{
     /**
      * Creates new form EspecialidadesView
      */
@@ -217,11 +217,6 @@ public class EspecialidadesView extends javax.swing.JInternalFrame implements Vi
         for (Especialidad e : especialidades){
             jComboBoxEspecialidades.addItem(e);
         }
-    }
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Especialidades");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEliminar;

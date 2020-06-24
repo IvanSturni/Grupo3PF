@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Eourist
  */
-public class AfiliadosView extends javax.swing.JInternalFrame implements View{
+public class AfiliadosView extends javax.swing.JInternalFrame{
     private boolean AfiliadoSeleccionado = false;
     /**
      * Creates new form AfiliadoView
@@ -46,6 +46,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
         jButtonGuardar = new javax.swing.JButton();
         jLabelMensaje1 = new javax.swing.JLabel();
         jLabelMensaje = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
         setTitle("Administracion de afiliados");
@@ -73,7 +74,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
         });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Seleccionar prestador a modificar");
+        jLabel2.setText("Seleccionar afiliado a modificar");
 
         jLabelTipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTipo.setText("Creación/Edición");
@@ -121,31 +122,38 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDNIBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxAfiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDNIFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
+                        .addComponent(jTextFieldDNIFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldDNIBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAfiliados, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButtonDeshabilitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(21, 21, 21)
+                        .addGap(137, 137, 137)
+                        .addComponent(jButtonDeshabilitar, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonGuardar)
-                        .addGap(71, 71, 71))
-                    .addComponent(jLabelMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonGuardar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -158,32 +166,34 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jTextFieldDNIBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
                     .addComponent(jComboBoxAfiliados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(12, 12, 12)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(jLabelTipo)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldDNIFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonDeshabilitar)
+                    .addComponent(jButtonGuardar)
                     .addComponent(jButtonEliminar)
-                    .addComponent(jButtonGuardar))
-                .addGap(26, 26, 26)
+                    .addComponent(jButtonDeshabilitar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 93, Short.MAX_VALUE)
                     .addComponent(jLabelMensaje1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 93, Short.MAX_VALUE)))
         );
 
         pack();
@@ -232,11 +242,11 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
         if (p.getId() != -1){
             AfiliadoSeleccionado = true;
             llenarDatosAfiliado(p);
-            jLabelTipo.setText("Edición del prestador: " + p.getNombre());
+            jLabelTipo.setText("Edición del afiliado: " + p.getNombre());
         } else {
             AfiliadoSeleccionado = false;
             vaciarDatosAfiliado();
-            jLabelTipo.setText("Creación de prestador");
+            jLabelTipo.setText("Creación de afiliado");
         }
     }//GEN-LAST:event_jComboBoxAfiliadosItemStateChanged
 
@@ -259,15 +269,15 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
             pd.actualizarAfiliado(p.getId(), p);
 
             if (p.isActivo()){
-                jLabelMensaje.setText("Prestador habilitado correctamente");
+                jLabelMensaje.setText("Afiliado habilitado correctamente");
                 jButtonDeshabilitar.setText("Deshabilitar");
             }
             else{
-                jLabelMensaje.setText("Prestador deshabilitado correctamente");
+                jLabelMensaje.setText("Afiliado deshabilitado correctamente");
                 jButtonDeshabilitar.setText("Habilitar");
             }
         } else {
-            jLabelMensaje.setText("Error al deshabilitar: no se encontro un prestador");
+            jLabelMensaje.setText("Error al deshabilitar: no se encontro un afiliado");
         }
     }//GEN-LAST:event_jButtonDeshabilitarActionPerformed
 
@@ -277,10 +287,10 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
             Afiliado a = (Afiliado)jComboBoxAfiliados.getSelectedItem();
             ad.bajaAfiliado(a.getId());
             jComboBoxAfiliados.removeItem(a);
-            jLabelMensaje.setText("Prestador eliminado correctamente");
+            jLabelMensaje.setText("Afiliado eliminado correctamente");
             vaciarDatosAfiliado();
         } else {
-            jLabelMensaje.setText("Error al eliminar: no se encontro un prestador");
+            jLabelMensaje.setText("Error al eliminar: no se encontro un afiliado");
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
@@ -295,7 +305,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
 
                 pd.actualizarAfiliado(p.getId(), p);
                 jLabelMensaje.setText("Afiliado editado correctamente");
-                jLabelTipo.setText("Edición del prestador: " + p.getNombre());
+                jLabelTipo.setText("Edición del afiliado: " + p.getNombre());
             } else {
                 jLabelMensaje.setText("Error al editar: datos del formulario incompletos");
             }
@@ -306,7 +316,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
                     jTextFieldNombre.getText(), true);
 
                 pd.altaAfiliado(p);
-                jLabelMensaje.setText("Prestador creado correctamente");
+                jLabelMensaje.setText("Afiliado creado correctamente");
                 jComboBoxAfiliados.addItem(p);
                 llenarDatosAfiliado(p);
             } else {
@@ -365,11 +375,6 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
             jComboBoxAfiliados.addItem(a);
         }
     }
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Afiliados");
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeshabilitar;
     private javax.swing.JButton jButtonEliminar;
@@ -382,6 +387,7 @@ public class AfiliadosView extends javax.swing.JInternalFrame implements View{
     private javax.swing.JLabel jLabelMensaje;
     private javax.swing.JLabel jLabelMensaje1;
     private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextFieldDNIBusqueda;
     private javax.swing.JTextField jTextFieldDNIFormulario;
     private javax.swing.JTextField jTextFieldNombre;

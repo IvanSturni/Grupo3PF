@@ -12,7 +12,7 @@ import modelos.*;
  *
  * @author Eourist
  */
-public class PrestadoresView extends javax.swing.JInternalFrame implements View {
+public class PrestadoresView extends javax.swing.JInternalFrame{
     private boolean prestadorSeleccionado = false;
     /**
      * Creates new form PrestadoresView
@@ -429,11 +429,6 @@ public class PrestadoresView extends javax.swing.JInternalFrame implements View 
         for (Especialidad e : especialidades){
             jComboBoxEspecialidades.addItem(e);
         }
-    }
-    
-    @Override
-    public void actualizarValores(){
-        System.out.println("Se actualizo la vista de Prestadores");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeshabilitar;

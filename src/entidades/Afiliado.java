@@ -54,6 +54,6 @@ public class Afiliado {
     
     @Override
     public String toString(){
-        return nombre;
+        return (activo ? "" : "[x] ") + nombre;
     }
 }
