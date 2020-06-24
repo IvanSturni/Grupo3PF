@@ -17,11 +17,9 @@ import modelos.*;
  *
  * @author Eourist
  */
-public class ListadoOrdenesView extends javax.swing.JInternalFrame {
-
+public class ListadoOrdenesView extends javax.swing.JInternalFrame{
     DefaultTableModel tableModel;
     ArrayList<Orden> tablaMostrada;
-
     /**
      * Creates new form ListadoOrdenesView
      */
@@ -133,11 +131,6 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame {
                 actualizarTabla(evt);
             }
         });
-        jCheckBoxFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxFiltroFechaActionPerformed(evt);
-            }
-        });
 
         jCheckBoxInctivas.setText("Inactivas");
         jCheckBoxInctivas.addItemListener(new java.awt.event.ItemListener() {
@@ -240,103 +233,95 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame {
         Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
         ordenSeleccionada.setActiva(!ordenSeleccionada.isActiva());
         OrdenData.actualizarOrden(ordenSeleccionada);
-
-        if (ordenSeleccionada.isActiva()) {
+        
+        if (ordenSeleccionada.isActiva())
             jButtonDesactivar.setText("Desactivar orden seleccionada");
-        } else {
+        else
             jButtonDesactivar.setText("Activar orden seleccionada");
-        }
     }//GEN-LAST:event_jButtonDesactivarActionPerformed
 
     private void jTableOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOrdenesMouseClicked
-        if (jTableOrdenes.getSelectedRow() == -1) {
+        if (jTableOrdenes.getSelectedRow() == -1)
             return;
-        }
         Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
-        if (ordenSeleccionada.isActiva()) {
+        if (ordenSeleccionada.isActiva())
             jButtonDesactivar.setText("Desactivar orden seleccionada");
-        } else {
+        else
             jButtonDesactivar.setText("Activar orden seleccionada");
-        }
     }//GEN-LAST:event_jTableOrdenesMouseClicked
 
-    private void jCheckBoxFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFiltroFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxFiltroFechaActionPerformed
-
-    private void armarEncabezados() {
+    private void armarEncabezados(){
         ArrayList<Object> ob = new ArrayList<Object>();
         ob.add("Afiliado");
         ob.add("Prestador");
-        ob.add("Fecha Alta");
+        ob.add("Fecha");
         ob.add("Hora");
         ob.add("Pago");
         ob.add("Activa");
-
-        for (Object o : ob) {
+        
+        for(Object o : ob){
             tableModel.addColumn(o);
         }
         jTableOrdenes.setModel(tableModel);
     }
-
-    private void llenarTabla() {
-        for (int i = tableModel.getRowCount(); i > 0; i--) {
-            tableModel.removeRow(i - 1);
+    
+    private void llenarTabla(){
+        for (int i = tableModel.getRowCount(); i > 0; i--){
+            tableModel.removeRow(i-1);
         }
-
-        Afiliado afiliado = (Afiliado) jComboBoxAfiliado.getSelectedItem();
-        Prestador prestador = (Prestador) jComboBoxPrestador.getSelectedItem();
-        if (1 + jComboBoxMes.getSelectedIndex() == 0 || 1 + jComboBoxDia.getSelectedIndex() == 0 || afiliado == null || prestador == null) {
+        
+        Afiliado afiliado = (Afiliado)jComboBoxAfiliado.getSelectedItem();
+        Prestador prestador = (Prestador)jComboBoxPrestador.getSelectedItem();
+        if (1+jComboBoxMes.getSelectedIndex() == 0 || 1+jComboBoxDia.getSelectedIndex() == 0 || afiliado == null || prestador == null)
             return;
-        }
         LocalDate fecha;
         try {
-            fecha = LocalDate.of(Integer.parseInt((String) jComboBoxAño.getSelectedItem()), Month.of(1 + jComboBoxMes.getSelectedIndex()), 1 + jComboBoxDia.getSelectedIndex());
-        } catch (DateTimeException e) {
+        fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 1+jComboBoxDia.getSelectedIndex());
+        } catch (DateTimeException e ){
             jComboBoxDia.setSelectedIndex(27);
-            fecha = LocalDate.of(Integer.parseInt((String) jComboBoxAño.getSelectedItem()), Month.of(1 + jComboBoxMes.getSelectedIndex()), 28);
+            fecha = LocalDate.of(Integer.parseInt((String)jComboBoxAño.getSelectedItem()), Month.of(1+jComboBoxMes.getSelectedIndex()), 28);
         }
         OrdenData od = new OrdenData();
         tablaMostrada = new ArrayList<>();
-
+        
         boolean mostrarInactivas = jCheckBoxInctivas.isSelected();
         boolean filtroFecha = jCheckBoxFiltroFecha.isSelected();
         boolean filtroAfiliado = afiliado.getId() != -1;
         boolean filtroPrestador = prestador.getId() != -1;
-
-        if (!filtroFecha && !filtroAfiliado && !filtroPrestador) {
+        
+        if (!filtroFecha && !filtroAfiliado && !filtroPrestador){
             // Sin filtro
             tablaMostrada = od.obtenerOrdenes(mostrarInactivas);
-        } else if (filtroFecha && filtroAfiliado && filtroPrestador) {
+        } else if (filtroFecha && filtroAfiliado && filtroPrestador){
             // Todos los filtros
             tablaMostrada = od.obtenerOrdenesAfiliadoPrestadorFecha(afiliado, prestador, fecha, mostrarInactivas);
-        } else if (!filtroFecha) {
-            if (filtroAfiliado && filtroPrestador) {
+        } else if (!filtroFecha){
+            if (filtroAfiliado && filtroPrestador){
                 // Filtrar por afiliado y prestador
                 tablaMostrada = od.obtenerOrdenesAfiliadoPrestador(afiliado, prestador, mostrarInactivas);
-            } else if (filtroAfiliado && !filtroPrestador) {
+            } else if (filtroAfiliado && !filtroPrestador){
                 // Filtrar solo por afiliado
                 tablaMostrada = od.obtenerOrdenesAfiliado(afiliado, mostrarInactivas);
             } else {
                 // Filtrar solo por prestador   
                 tablaMostrada = od.obtenerOrdenesPrestador(prestador, mostrarInactivas);
             }
-        } else if (!filtroAfiliado) {
-            if (filtroFecha && filtroPrestador) {
+        } else if (!filtroAfiliado){
+            if (filtroFecha && filtroPrestador){
                 // Filtrar por fecha y prestador
                 tablaMostrada = od.obtenerOrdenesPrestadorFecha(prestador, fecha, mostrarInactivas);
-            } else if (filtroFecha && !filtroPrestador) {
+            } else if (filtroFecha && !filtroPrestador){
                 // Filtrar solo por fecha
                 tablaMostrada = od.obtenerOrdenesFecha(fecha, mostrarInactivas);
             } else {
                 // Filtrar solo por prestador
                 tablaMostrada = od.obtenerOrdenesPrestador(prestador, mostrarInactivas);
             }
-        } else if (!filtroPrestador) {
-            if (filtroFecha && filtroAfiliado) {
+        } else if (!filtroPrestador){
+            if (filtroFecha && filtroAfiliado){
                 // Filtrar por fecha y afiliado
                 tablaMostrada = od.obtenerOrdenesAfiliadoFecha(afiliado, fecha, mostrarInactivas);
-            } else if (filtroFecha && !filtroAfiliado) {
+            } else if (filtroFecha && !filtroAfiliado){
                 // Filtrar solo por fecha
                 tablaMostrada = od.obtenerOrdenesFecha(fecha, mostrarInactivas);
             } else {
@@ -344,73 +329,65 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame {
                 tablaMostrada = od.obtenerOrdenesAfiliado(afiliado, mostrarInactivas);
             }
         }
-
-        for (Orden o : tablaMostrada) {
-            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), fecha.toString(), o.getHorario().toString(), o.isEfectivo() ? "Efectivo" : "Contado", o.isActiva() ? "Si" : "No"});
-        }
+        
+        for (Orden o : tablaMostrada)
+            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), o.getFechaAtencion().toString(), o.getHorario().toString(), o.isEfectivo() ? "Efectivo" : "Contado", o.isActiva() ? "Si" : "No"});
     }
-
-    private void llenarDesplegableAfiliados() {
+    
+    private void llenarDesplegableAfiliados(){
         ArrayList<Afiliado> afiliados = AfiliadoData.obtenerAfiliados(false);
-
+        
         jComboBoxAfiliado.removeAllItems();
         jComboBoxAfiliado.addItem(new Afiliado(-1, "Todos seleccionados", true));
-        for (Afiliado a : afiliados) {
+        for (Afiliado a : afiliados){
             jComboBoxAfiliado.addItem(a);
         }
     }
-
-    private void llenarDesplegablePrestadores() {
+    
+    private void llenarDesplegablePrestadores(){
         ArrayList<Prestador> prestadores = new PrestadorData().obtenerPrestadores(false);
-
+        
         jComboBoxPrestador.removeAllItems();
-        jComboBoxPrestador.addItem(new Prestador(-1, "Todos seleccionados", new Especialidad("NULL"), true));
-        for (Prestador p : prestadores) {
+        jComboBoxPrestador.addItem(new Prestador(-1, "Todos seleccionados", new Especialidad("NULL"),true));
+        for (Prestador p : prestadores){
             jComboBoxPrestador.addItem(p);
         }
     }
-
-    private void llenarDesplegableDias() {
+    
+    private void llenarDesplegableDias(){
         int diaSeleccionado = jComboBoxDia.getSelectedIndex();
-        int mesSeleccionado = jComboBoxMes.getSelectedIndex() + 1;
+        int mesSeleccionado = jComboBoxMes.getSelectedIndex()+1;
         int dias = 0;
-        switch (mesSeleccionado) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
+        switch(mesSeleccionado){
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
                 dias = 31;
                 break;
             case 2:
                 dias = 28;
-                if (Integer.parseInt((String) jComboBoxAño.getSelectedItem()) % 4 == 0) {
+                if (Integer.parseInt((String)jComboBoxAño.getSelectedItem()) % 4 == 0)
                     dias = 29;
-                }
                 break;
             default:
                 dias = 30;
                 break;
         }
-
+        
         jComboBoxDia.removeAllItems();
-        for (int i = 1; i <= dias; i++) {
+        for (int i = 1; i <= dias; i++){
             jComboBoxDia.addItem(String.valueOf(i));
         }
-
-        if (jComboBoxDia.getItemAt(diaSeleccionado) != null) {
+        
+        if (jComboBoxDia.getItemAt(diaSeleccionado) != null){
             jComboBoxDia.setSelectedIndex(diaSeleccionado);
         }
     }
-
-    private void llenarDesplegableMeses() {
+    
+    private void llenarDesplegableMeses(){
         jComboBoxMes.removeAllItems();
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 1; i <= 12; i++){
             jComboBoxMes.addItem(String.valueOf(i));
         }
-
+        
         /*jComboBoxMes.addItem("Enero");
         jComboBoxMes.addItem("Febrero");
         jComboBoxMes.addItem("Marzo");
@@ -424,12 +401,12 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame {
         jComboBoxMes.addItem("Noviembre");
         jComboBoxMes.addItem("Diciembre");*/
     }
-
-    private void llenarDesplegableAños() {
+    
+    private void llenarDesplegableAños(){
         int añoActual = LocalDate.now().getYear();
-
+        
         jComboBoxAño.removeAllItems();
-        for (int i = añoActual - 2; i <= añoActual + 2; i++) {
+        for (int i = añoActual-2; i <= añoActual+2; i++){
             jComboBoxAño.addItem(String.valueOf(i));
         }
         jComboBoxAño.setSelectedIndex(2);
