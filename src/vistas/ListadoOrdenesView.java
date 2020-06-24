@@ -60,6 +60,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
         jCheckBoxFiltroFecha = new javax.swing.JCheckBox();
         jCheckBoxInctivas = new javax.swing.JCheckBox();
         jButtonDesactivar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Listado de ordenes");
@@ -146,14 +147,16 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
             }
         });
 
+        jLabel6.setText("¡Atencion! Las ordenes no podrán volver a activarse.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jCheckBoxFiltroFecha)
@@ -179,11 +182,13 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)))
+                            .addComponent(jScrollPane1))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jButtonDesactivar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonDesactivar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,8 +212,10 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonDesactivar)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDesactivar)
+                    .addComponent(jLabel6))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,24 +237,18 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
     }//GEN-LAST:event_actualizarDias
 
     private void jButtonDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesactivarActionPerformed
+        if (jTableOrdenes.getSelectedRow() == -1 || tablaMostrada.get(jTableOrdenes.getSelectedRow()) == null)
+                return;
         Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
-        ordenSeleccionada.setActiva(!ordenSeleccionada.isActiva());
+        ordenSeleccionada.setActiva(false);
         OrdenData.actualizarOrden(ordenSeleccionada);
-        
-        if (ordenSeleccionada.isActiva())
-            jButtonDesactivar.setText("Desactivar orden seleccionada");
-        else
-            jButtonDesactivar.setText("Activar orden seleccionada");
+        llenarTabla();
     }//GEN-LAST:event_jButtonDesactivarActionPerformed
 
     private void jTableOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOrdenesMouseClicked
         if (jTableOrdenes.getSelectedRow() == -1)
             return;
         Orden ordenSeleccionada = tablaMostrada.get(jTableOrdenes.getSelectedRow());
-        if (ordenSeleccionada.isActiva())
-            jButtonDesactivar.setText("Desactivar orden seleccionada");
-        else
-            jButtonDesactivar.setText("Activar orden seleccionada");
     }//GEN-LAST:event_jTableOrdenesMouseClicked
 
     private void armarEncabezados(){
@@ -425,6 +426,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableOrdenes;
     // End of variables declaration//GEN-END:variables

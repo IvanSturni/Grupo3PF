@@ -142,16 +142,16 @@ public class OrdenesView extends javax.swing.JInternalFrame{
         jcDia = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLdia = new javax.swing.JLabel();
-        lIdPrestador = new java.awt.List();
-        lNomPrestadpr = new java.awt.List();
-        lHorariosPrestador = new java.awt.List();
-        lIdHorario = new java.awt.List();
         jLabel17 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        lIdPrestador = new java.awt.List();
+        lNomPrestadpr = new java.awt.List();
+        lIdHorario = new java.awt.List();
+        lHorariosPrestador = new java.awt.List();
         jLError = new javax.swing.JLabel();
         jTdniAfiliado = new javax.swing.JTextField();
         jButtonBuscarAfiliado = new javax.swing.JButton();
@@ -262,41 +262,6 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                 .addComponent(jButtonBuscarPrestador))
         );
 
-        lIdPrestador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lIdPrestador.setMaximumSize(new java.awt.Dimension(40, 80));
-        lIdPrestador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lIdPrestadorMouseClicked(evt);
-            }
-        });
-        lIdPrestador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lIdPrestadorActionPerformed(evt);
-            }
-        });
-
-        lNomPrestadpr.setEnabled(false);
-        lNomPrestadpr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lNomPrestadprActionPerformed(evt);
-            }
-        });
-
-        lHorariosPrestador.setEnabled(false);
-
-        lIdHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lIdHorario.setMaximumSize(new java.awt.Dimension(40, 80));
-        lIdHorario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lIdHorarioMouseClicked(evt);
-            }
-        });
-        lIdHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lIdHorarioActionPerformed(evt);
-            }
-        });
-
         jLabel17.setText("Metodo de pago:");
 
         jRadioButton1.setText("Efectivo");
@@ -325,6 +290,41 @@ public class OrdenesView extends javax.swing.JInternalFrame{
 
         jLabel10.setText("Prestadores disponibles:");
 
+        lIdPrestador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lIdPrestador.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdPrestador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lIdPrestadorMouseClicked(evt);
+            }
+        });
+        lIdPrestador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lIdPrestadorActionPerformed(evt);
+            }
+        });
+
+        lNomPrestadpr.setEnabled(false);
+        lNomPrestadpr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lNomPrestadprActionPerformed(evt);
+            }
+        });
+
+        lIdHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lIdHorario.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdHorario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lIdHorarioMouseClicked(evt);
+            }
+        });
+        lIdHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lIdHorarioActionPerformed(evt);
+            }
+        });
+
+        lHorariosPrestador.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -344,16 +344,15 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                         .addComponent(jLdia)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,16 +364,16 @@ public class OrdenesView extends javax.swing.JInternalFrame{
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lIdPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 94, Short.MAX_VALUE))
+                    .addComponent(lIdPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
                     .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -441,7 +440,7 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(224, 224, 224))
         );
 
         pack();
