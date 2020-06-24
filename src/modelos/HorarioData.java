@@ -105,7 +105,7 @@ public class HorarioData {
             String sql;
             sql = "SELECT id , idPrestador , dia , horaInicio , horaFinal FROM horarios\n"
                     + "Left JOIN (\n"
-                    + "	SELECT fechaAtencion , idHorario from ordenes WHERE fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date) \n"
+                    + "	SELECT fechaAtencion , idHorario from ordenes WHERE activa = 1 and fechaAtencion = cast('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"' as date) \n"
                     + ")AS orde\n"
                     + "on orde.idHorario = horarios.id\n"
                     + "where (fechaAtencion is null) and (horarios.idPrestador = "+ idPrestador +") and (dia = "+fecha.getDayOfWeek().getValue()+")";
