@@ -26,7 +26,7 @@ public class PrestadorData {
          return prestador;
     }
     
-    public Prestador obtenerPrestador(int id){
+    static public Prestador obtenerPrestador(int id){
         Prestador prestador = null;
         EspecialidadData em = new EspecialidadData();
         try {
@@ -95,7 +95,7 @@ public class PrestadorData {
                      +"from prestadores\n" 
                      +"INNER JOIN (\n" 
                      +"select ho.idPrestador as prestadores\n" 
-                     +"from (SELECT * from ordenes where fechaAtencion = ('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"')) as ord\n" 
+                     +"from (SELECT * from ordenes where activa = 1 and fechaAtencion = ('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"')) as ord\n" 
                      +"RIGHT JOIN (select * from horarios WHERE dia = "+fecha.getDayOfWeek().getValue()+") as ho\n" 
                      +"on ord.idHorario = ho.id\n" 
                      +"WHERE ord.fechaAtencion is null)as pres\n" 

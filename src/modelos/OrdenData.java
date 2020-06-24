@@ -56,7 +56,7 @@ public class OrdenData {
         return orden;
     }
     
-    public ArrayList<Orden> obtenerOrdenes() {
+    static public ArrayList<Orden> obtenerOrdenes() {
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();
         HorarioData hd = new HorarioData();
@@ -95,7 +95,7 @@ public class OrdenData {
         }
     }
     
-    public void actualizarOrden(Orden orden) {
+    static public void actualizarOrden(Orden orden) {
         try {
             String sql = "UPDATE ordenes SET idAfiliado = '" + orden.getAfiliado().getId() + 
                     "', idHorario = '" + orden.getHorario().getId() + 

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package vistas;
+import entidades.Orden;
 import grupo3pf.Conexion;
 import java.awt.Component;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import modelos.OrdenData;
 
 /**
  *
@@ -17,7 +21,6 @@ public class Menu extends javax.swing.JFrame {
     HorariosView vHorarios = new HorariosView();
     OrdenesView vOrdenes;
     PrestadoresView vPrestadores = new PrestadoresView();
-    
     ListadoAfiliadosView vListadoAfiliados = new ListadoAfiliadosView();
     ListadoOrdenesView vListadoOrdenes = new ListadoOrdenesView();
     ListadoPrestadoresView vListadoPrestadores = new ListadoPrestadoresView();
@@ -26,8 +29,13 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        for(Orden orden :  OrdenData.obtenerOrdenes() ){
+            if(orden.getFechaAtencion().isAfter(LocalDate.now())){
+                orden.setActiva(false);
+                OrdenData.actualizarOrden(orden);
+            }
+        }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

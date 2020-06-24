@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import modelos.*;
 
@@ -22,13 +23,12 @@ import modelos.*;
 public class OrdenesView extends javax.swing.JInternalFrame implements View {
 
     ArrayList<Prestador> prestadores;
+    Prestador prestador;
     LocalDate fechaCreacion;
     LocalDate fechaAtencion;
     boolean habilitar = false;
     Afiliado afiliado;
     Horario horario;
-    Horario turnoTarde;
-    Horario turnoMañana;
     boolean efectivo;
     ArrayList<Horario> horarios;
 
@@ -67,9 +67,23 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         this.jTdniAfiliado.setText("");
         this.jRadioButton1.setSelected(false);
         this.jRadioButton2.setSelected(false);
+        limpiarPrestadores();
+        limpiarHorarios();
+    }
+
+    public void limpiarPrestadores() {
         if (this.lIdPrestador.getItemCount() > 0) {
             this.lIdPrestador.removeAll();
             this.lNomPrestadpr.removeAll();
+            this.prestador = null;
+        }
+    }
+
+    public void limpiarHorarios() {
+        if (this.lIdHorario.getItemCount() > 0) {
+            lHorariosPrestador.removeAll();
+            lIdHorario.removeAll();
+            this.horario = null;
         }
     }
 
@@ -134,9 +148,9 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         lNomPrestadpr = new java.awt.List();
         lHorariosPrestador = new java.awt.List();
         lIdHorario = new java.awt.List();
+        jLabel17 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel17 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLError = new javax.swing.JLabel();
         jTdniAfiliado = new javax.swing.JTextField();
@@ -266,6 +280,11 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
 
         lIdPrestador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lIdPrestador.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdPrestador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lIdPrestadorMouseClicked(evt);
+            }
+        });
         lIdPrestador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lIdPrestadorActionPerformed(evt);
@@ -278,50 +297,18 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
 
         lIdHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lIdHorario.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdHorario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lIdHorarioMouseClicked(evt);
+            }
+        });
         lIdHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lIdHorarioActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                .addGap(37, 37, 37)
-                .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLdia))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(jLdia))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(lNomPrestadpr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        jLabel17.setText("metodo de pago");
 
         jRadioButton1.setText("efectivo");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -337,7 +324,54 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
             }
         });
 
-        jLabel17.setText("metodo de pago");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lNomPrestadpr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jRadioButton2)
+                        .addGap(10, 10, 10)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addComponent(jLdia))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lHorariosPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLdia))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jLabel17))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lNomPrestadpr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
+        );
 
         jButton2.setText("generar");
         jButton2.setActionCommand("generar ");
@@ -348,6 +382,11 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         });
 
         jTdniAfiliado.setToolTipText("ingrese el dni del afiliado");
+        jTdniAfiliado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdniAfiliadoKeyTyped(evt);
+            }
+        });
 
         jButtonBuscarAfiliado.setText("buscar");
         jButtonBuscarAfiliado.addActionListener(new java.awt.event.ActionListener() {
@@ -361,36 +400,26 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)))
-                        .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addGap(89, 89, 89)
-                                    .addComponent(jTdniAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(35, 35, 35)
-                                    .addComponent(jButtonBuscarAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel17)
-                                    .addGap(129, 129, 129)
-                                    .addComponent(jRadioButton1)
-                                    .addGap(118, 118, 118)
-                                    .addComponent(jRadioButton2))
-                                .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLafiliadoNom, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(206, Short.MAX_VALUE))))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(89, 89, 89)
+                                .addComponent(jTdniAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jButtonBuscarAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLafiliadoNom, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,16 +436,11 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
                 .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jLabel17)
-                    .addComponent(jRadioButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addGap(159, 159, 159))
+                .addGap(154, 154, 154))
         );
 
         pack();
@@ -449,10 +473,12 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
             } else {
                 this.jLError.setText("el afiliado para este dni no existe o no esta activo");
                 this.jLafiliadoNom.setText("nombre: ");
+                this.limpiarTodo();
             }
         } else {
             this.jLError.setText("ingrese un dni valido");
             this.jLafiliadoNom.setText("nombre: ");
+            this.limpiarTodo();
         }
     }//GEN-LAST:event_jButtonBuscarAfiliadoActionPerformed
 
@@ -478,11 +504,9 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
     }//GEN-LAST:event_jComboBoxEspecialidadesItemStateChanged
 
     private void jButtonBuscarPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarPrestadorActionPerformed
-        if (this.lIdPrestador.getItemCount() > 0) {
-            this.lIdPrestador.removeAll();
-            this.lNomPrestadpr.removeAll();
-        }
-        this.prestadores = PrestadorData.obtenerPrestadoresDisponibles2((Especialidad)jComboBoxEspecialidades.getSelectedItem(), this.fechaAtencion);
+        this.limpiarHorarios();
+        this.limpiarPrestadores();
+        this.prestadores = PrestadorData.obtenerPrestadoresDisponibles2((Especialidad) jComboBoxEspecialidades.getSelectedItem(), this.fechaAtencion);
         //this.prestadores = PrestadorData.obtenerPrestadoresDisponibles(this.fechaAtencion);
         //System.out.println(this.prestadores.size());
         for (Prestador prestador : this.prestadores) {
@@ -491,7 +515,7 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
                 this.lNomPrestadpr.add(prestador.getNombre());
             }
         }
-        this.jLError.setText(this.fechaAtencion.getDayOfWeek()+ " ");
+        this.jLError.setText(this.fechaAtencion.getDayOfWeek() + " ");
         //this.jLdia.setText(this.fechaAtencion.getDayOfWeek() + "  " + this.fechaAtencion);
     }//GEN-LAST:event_jButtonBuscarPrestadorActionPerformed
 
@@ -525,21 +549,14 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
     }//GEN-LAST:event_jcAñoActionPerformed
 
     private void lIdPrestadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lIdPrestadorActionPerformed
-        this.horarios = HorarioData.obtenerHorariosDisponible(Integer.parseInt(this.lIdPrestador.getItem(this.lIdPrestador.getSelectedIndex())), this.fechaAtencion);
+
         //HorarioData hd = new HorarioData();
         //PrestadorData pd = new PrestadorData();
         //Prestador p = pd.obtenerPrestador(Integer.valueOf(lIdPrestador.getSelectedItem()));
         //horarios = hd.obtenerHorariosDiaPrestador(p.getId(), fechaAtencion.getDayOfWeek().getValue());
         //LocalTime medioDia = LocalTime.of(12, 00);
-        if (this.horarios != null) {
-            lHorariosPrestador.removeAll();
-            lIdHorario.removeAll();
-            for(Horario h : horarios){
-                System.out.println(h.toString());
-                lIdHorario.add(String.valueOf(h.getId()));
-                lHorariosPrestador.add(h.toString());
-            }
-            /*if (this.horarios.get(0).getHoraFin().isAfter(medioDia)) {
+
+        /*if (this.horarios.get(0).getHoraFin().isAfter(medioDia)) {
                 this.jLTT.setText("de: " + this.horarios.get(0).getHoraInicio().getHour() + "hasta: " + this.horarios.get(0).getHoraFin().getHour());
                 this.jrTurnoTarde.setEnabled(true);
                 this.turnoTarde = this.horarios.get(0);
@@ -559,26 +576,68 @@ public class OrdenesView extends javax.swing.JInternalFrame implements View {
                     this.turnoMañana = this.horarios.get(0);
                 }
             }*/
-        }
+
     }//GEN-LAST:event_lIdPrestadorActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        OrdenData.altaOrden(
-                new Orden(
-                        this.afiliado,
-                        this.horario,
-                        this.fechaAtencion,
-                        this.fechaCreacion,
-                        this.efectivo,
-                        true
-                )
-        );
-        limpiarTodo();
+        if (this.afiliado != null) {
+            if (this.horario != null) {
+                if (this.jRadioButton1.getSelectedObjects() != null || this.jRadioButton2.getSelectedObjects() != null) {
+                    OrdenData.altaOrden(
+                            new Orden(
+                                    this.afiliado,
+                                    this.horario,
+                                    this.fechaAtencion,
+                                    this.fechaCreacion,
+                                    this.efectivo,
+                                    true
+                            )
+                    );
+                    limpiarTodo();
+                } else {
+                    this.jLError.setText("seleccione un metodo de pago");
+                }
+            } else {
+                this.jLError.setText("seleccione un horario disponible");
+            }
+        } else {
+            this.jLError.setText("seleccione un afiliado");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lIdHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lIdHorarioActionPerformed
         horario = new HorarioData().obtenerHorario(Integer.valueOf(lIdHorario.getSelectedItem()));
     }//GEN-LAST:event_lIdHorarioActionPerformed
+
+    private void lIdPrestadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lIdPrestadorMouseClicked
+        if (-1 != this.lIdPrestador.getSelectedIndex()) {
+            this.horarios = HorarioData.obtenerHorariosDisponible(Integer.parseInt(this.lIdPrestador.getItem(this.lIdPrestador.getSelectedIndex())), this.fechaAtencion);
+            if (this.lIdHorario.getItemCount() > 0) {
+                lHorariosPrestador.removeAll();
+                lIdHorario.removeAll();
+            }
+            if (this.horarios != null) {
+                this.prestador = PrestadorData.obtenerPrestador(Integer.parseInt(this.lIdPrestador.getItem(this.lIdPrestador.getSelectedIndex())));
+                for (Horario h : horarios) {
+                    System.out.println(h.toString());
+                    lIdHorario.add(String.valueOf(h.getId()));
+                    lHorariosPrestador.add(h.toString());
+                }
+            }
+        }
+    }//GEN-LAST:event_lIdPrestadorMouseClicked
+
+    private void lIdHorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lIdHorarioMouseClicked
+        if (-1 != this.lIdHorario.getSelectedIndex()) {
+            this.horario = HorarioData.obtenerHorario(Integer.parseInt(this.lIdHorario.getItem(this.lIdHorario.getSelectedIndex())));
+        }
+    }//GEN-LAST:event_lIdHorarioMouseClicked
+
+    private void jTdniAfiliadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniAfiliadoKeyTyped
+        if (!Character.isDigit(evt.getKeyChar()) || ((JTextField) evt.getSource()).getText().length() >= 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTdniAfiliadoKeyTyped
 
     private Component[] getComponents(Component container) {
         ArrayList<Component> list = null;

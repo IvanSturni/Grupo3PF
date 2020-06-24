@@ -29,7 +29,7 @@ public class HorarioData {
         return horario;
     }
 
-    public Horario obtenerHorario(int id) {
+    static public Horario obtenerHorario(int id) {
         Horario horario = null;
         PrestadorData pd = new PrestadorData();
         try {
