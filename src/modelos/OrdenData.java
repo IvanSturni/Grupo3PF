@@ -55,7 +55,30 @@ public class OrdenData {
         }
         return orden;
     }
+    public static boolean habilitarOrden(int idAfiliado, LocalDate fecha, int idPrestador){
+        try{
+        String sql;
+        sql = "SELECT *\n" 
+                +"FROM\n" 
+                +"  	(SELECT *\n" 
+                +"       FROM (SELECT idHorario  FROM ORDENES WHERE fechaAtencion = ('"+fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth()+"') AND idAfiliado = "+idAfiliado+" and activa = 1) AS ORDE\n" 
+                +"       INNER JOIN horarios\n"                
+                +"       ON ORDE.idHorario = horarios.id) as tabla\n" 
+                +"INNER JOIN prestadores \n"
+                +"on tabla.idPrestador = prestadores.id\n" 
+                +"WHERE prestadores.id = "+idPrestador+"";
     
+        Statement s = Conexion.get().createStatement();
+        ResultSet rs = s.executeQuery(sql);
+        while (rs.next()){
+            return false;
+        }
+        }
+        catch(SQLException e){
+         System.out.println("error: "+ e.getMessage());
+        }
+        return true;
+    }
     static public ArrayList<Orden> obtenerOrdenes(boolean mostrarDeshabilitados) {
         ArrayList<Orden> resultados = new ArrayList<>();
         AfiliadoData ad = new AfiliadoData();

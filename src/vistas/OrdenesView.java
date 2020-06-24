@@ -138,24 +138,24 @@ public class OrdenesView extends javax.swing.JInternalFrame{
         jLabel6 = new javax.swing.JLabel();
         jButtonBuscarPrestador = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
         jcDia = new javax.swing.JComboBox<>();
+        jComboBoxEspecialidades = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLdia = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        lIdPrestador = new java.awt.List();
-        lNomPrestadpr = new java.awt.List();
         lIdHorario = new java.awt.List();
         lHorariosPrestador = new java.awt.List();
+        lIdPrestador = new java.awt.List();
+        lNomPrestadpr = new java.awt.List();
         jLError = new javax.swing.JLabel();
         jTdniAfiliado = new javax.swing.JTextField();
         jButtonBuscarAfiliado = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -204,6 +204,12 @@ public class OrdenesView extends javax.swing.JInternalFrame{
 
         jLabel1.setText("Especialidad:");
 
+        jcDia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcDiaItemStateChanged(evt);
+            }
+        });
+
         jComboBoxEspecialidades.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxEspecialidadesItemStateChanged(evt);
@@ -212,12 +218,6 @@ public class OrdenesView extends javax.swing.JInternalFrame{
         jComboBoxEspecialidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxEspecialidadesActionPerformed(evt);
-            }
-        });
-
-        jcDia.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jcDiaItemStateChanged(evt);
             }
         });
 
@@ -286,9 +286,20 @@ public class OrdenesView extends javax.swing.JInternalFrame{
             }
         });
 
-        jLabel9.setText("Horarios disponibles:");
+        lIdHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lIdHorario.setMaximumSize(new java.awt.Dimension(40, 80));
+        lIdHorario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lIdHorarioMouseClicked(evt);
+            }
+        });
+        lIdHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lIdHorarioActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setText("Prestadores disponibles:");
+        lHorariosPrestador.setEnabled(false);
 
         lIdPrestador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lIdPrestador.setMaximumSize(new java.awt.Dimension(40, 80));
@@ -310,21 +321,6 @@ public class OrdenesView extends javax.swing.JInternalFrame{
             }
         });
 
-        lIdHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lIdHorario.setMaximumSize(new java.awt.Dimension(40, 80));
-        lIdHorario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lIdHorarioMouseClicked(evt);
-            }
-        });
-        lIdHorario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lIdHorarioActionPerformed(evt);
-            }
-        });
-
-        lHorariosPrestador.setEnabled(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -343,37 +339,26 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                         .addGap(262, 262, 262)
                         .addComponent(jLdia)
                         .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lNomPrestadpr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(lIdPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lNomPrestadpr, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 94, Short.MAX_VALUE))
-                    .addComponent(lIdPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(lIdHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lIdPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(lNomPrestadpr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lHorariosPrestador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lIdHorario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -402,6 +387,10 @@ public class OrdenesView extends javax.swing.JInternalFrame{
 
         jLabel7.setText("DNI:");
 
+        jLabel10.setText("Prestadores disponibles:");
+
+        jLabel9.setText("Horarios disponibles:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -418,10 +407,20 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTdniAfiliado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBuscarAfiliado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonBuscarAfiliado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel10)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel9)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,11 +435,15 @@ public class OrdenesView extends javax.swing.JInternalFrame{
                 .addComponent(jLafiliadoNom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jLError, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(224, 224, 224))
+                .addContainerGap())
         );
 
         pack();
@@ -590,20 +593,24 @@ if (this.horarios != null) {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (this.afiliado != null) {
             if (this.horario != null) {
-                if (this.jRadioButton1.getSelectedObjects() != null || this.jRadioButton2.getSelectedObjects() != null) {
-                    OrdenData.altaOrden(
-                            new Orden(
-                                    this.afiliado,
-                                    this.horario,
-                                    this.fechaAtencion,
-                                    this.fechaCreacion,
-                                    this.efectivo,
-                                    true
-                            )
-                    );
-                    limpiarTodo();
+                if (OrdenData.habilitarOrden(afiliado.getId(), fechaAtencion, horario.getPrestador().getId())) {
+                    if (this.jRadioButton1.getSelectedObjects() != null || this.jRadioButton2.getSelectedObjects() != null) {
+                        OrdenData.altaOrden(
+                                new Orden(
+                                        this.afiliado,
+                                        this.horario,
+                                        this.fechaAtencion,
+                                        this.fechaCreacion,
+                                        this.efectivo,
+                                        true
+                                )
+                        );
+                        limpiarTodo();
+                    } else {
+                        this.jLError.setText("Seleccione un metodo de pago");
+                    }
                 } else {
-                    this.jLError.setText("Seleccione un metodo de pago");
+                    this.jLError.setText("El afiliado seleccionado ya tiene un turno para este dia");
                 }
             } else {
                 this.jLError.setText("Seleccione un horario disponible");
