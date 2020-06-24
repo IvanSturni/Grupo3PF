@@ -45,21 +45,27 @@ public class Grupo3PF {
         Prestador p2 = pd.altaPrestador(new Prestador(16234998, "Dr. Saez", e2, true));
         Prestador p3 = pd.altaPrestador(new Prestador(24163444, "Dra. Fernandez", e3, true));
         Prestador p4 = pd.altaPrestador(new Prestador(33647122, "Dra. Dominguez", e2, true));
-        Prestador p5 = pd.altaPrestador(new Prestador(36885362, "Dr. Rodriguez", e5, true));
-        Prestador p6 = pd.altaPrestador(new Prestador(12356334, "Dr. Paz", e7, true));
-        Prestador p7 = pd.altaPrestador(new Prestador(11123424, "Dra. Torres", e7, true));
-        Prestador p8 = pd.altaPrestador(new Prestador(26135234, "Dr. Godoy", e5, true));
-        Prestador p9 = pd.altaPrestador(new Prestador(23555455, "Dra. Castillo", e9, true));
+        Prestador p5 = pd.altaPrestador(new Prestador(36885362, "Dr. Rodriguez", e1, true));
+        Prestador p6 = pd.altaPrestador(new Prestador(12356334, "Dr. Paz", e3, true));
+        Prestador p7 = pd.altaPrestador(new Prestador(11123424, "Dra. Torres", e2, true));
+        Prestador p8 = pd.altaPrestador(new Prestador(26135234, "Dr. Godoy", e2, true));
+        Prestador p9 = pd.altaPrestador(new Prestador(23555455, "Dra. Castillo", e3, true));
         
         Horario h1 = hd.altaHorario(new Horario(p1, DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(13, 0)));
         Horario h2 = hd.altaHorario(new Horario(p1, DayOfWeek.MONDAY, LocalTime.of(14, 30), LocalTime.of(18, 30)));
         Horario h3 = hd.altaHorario(new Horario(p2, DayOfWeek.TUESDAY, LocalTime.of(10, 30), LocalTime.of(12, 0)));
         Horario h4 = hd.altaHorario(new Horario(p2, DayOfWeek.WEDNESDAY, LocalTime.of(16, 00), LocalTime.of(18, 00)));
         Horario h5 = hd.altaHorario(new Horario(p3, DayOfWeek.FRIDAY, LocalTime.of(8, 30), LocalTime.of(21, 00)));
-        Horario h6 = hd.altaHorario(new Horario(p5, DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
-        Horario h7 = hd.altaHorario(new Horario(p5, DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
-        Horario h8 = hd.altaHorario(new Horario(p5, DayOfWeek.WEDNESDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
-        Horario h9 = hd.altaHorario(new Horario(p9, DayOfWeek.WEDNESDAY, LocalTime.of(9, 30), LocalTime.of(18, 00)));
+        Horario h6 = hd.altaHorario(new Horario(p4, DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
+        Horario h8 = hd.altaHorario(new Horario(p4, DayOfWeek.WEDNESDAY, LocalTime.of(14, 30), LocalTime.of(20, 00)));
+        Horario h9 = hd.altaHorario(new Horario(p5, DayOfWeek.WEDNESDAY, LocalTime.of(9, 30), LocalTime.of(18, 00)));
+        Horario h10 = hd.altaHorario(new Horario(p6, DayOfWeek.MONDAY, LocalTime.of(9, 30), LocalTime.of(13, 0)));
+        Horario h11 = hd.altaHorario(new Horario(p6, DayOfWeek.MONDAY, LocalTime.of(14, 30), LocalTime.of(18, 30)));
+        Horario h12 = hd.altaHorario(new Horario(p7, DayOfWeek.TUESDAY, LocalTime.of(10, 30), LocalTime.of(12, 0)));
+        Horario h13 = hd.altaHorario(new Horario(p7, DayOfWeek.WEDNESDAY, LocalTime.of(16, 00), LocalTime.of(18, 00)));
+        Horario h14 = hd.altaHorario(new Horario(p8, DayOfWeek.FRIDAY, LocalTime.of(8, 30), LocalTime.of(21, 00)));
+        Horario h15 = hd.altaHorario(new Horario(p9, DayOfWeek.MONDAY, LocalTime.of(8, 30), LocalTime.of(12, 00)));
+        Horario h16 = hd.altaHorario(new Horario(p9, DayOfWeek.TUESDAY, LocalTime.of(15, 30), LocalTime.of(19, 00)));
         
         /*Orden o1 = od.altaOrden(new Orden(a1,h1,LocalDate.of(2020, Month.MARCH, 3), LocalDate.of(2020, Month.MARCH, 1),true,false));
         Orden o2 = od.altaOrden(new Orden(a2,h1,LocalDate.of(2020, Month.MARCH, 4), LocalDate.of(2020, Month.MARCH, 3),true,true));

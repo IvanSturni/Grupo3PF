@@ -43,7 +43,6 @@ public class PrestadoresView extends javax.swing.JInternalFrame{
         jComboBoxEspecialidades = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabelMensaje = new javax.swing.JLabel();
-        jButtonHorarios = new javax.swing.JButton();
         jButtonDeshabilitar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
@@ -95,8 +94,6 @@ public class PrestadoresView extends javax.swing.JInternalFrame{
 
         jLabelMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jButtonHorarios.setText("Gestionar horarios");
-
         jButtonDeshabilitar.setText("Deshabilitar");
         jButtonDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,8 +138,7 @@ public class PrestadoresView extends javax.swing.JInternalFrame{
                     .addComponent(jSeparator1)
                     .addComponent(jLabelMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButtonHorarios)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(127, 127, 127)
                         .addComponent(jButtonDeshabilitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonEliminar)
@@ -199,13 +195,12 @@ public class PrestadoresView extends javax.swing.JInternalFrame{
                     .addComponent(jComboBoxEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonHorarios)
                     .addComponent(jButtonDeshabilitar)
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonGuardar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -434,7 +429,6 @@ public class PrestadoresView extends javax.swing.JInternalFrame{
     private javax.swing.JButton jButtonDeshabilitar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonHorarios;
     private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
     private javax.swing.JComboBox<Prestador> jComboBoxPrestadores;
     private javax.swing.JLabel jLabel1;
