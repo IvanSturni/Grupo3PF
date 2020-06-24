@@ -83,6 +83,195 @@ public class OrdenData {
         return resultados;
     }
     
+    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestadorFecha(Afiliado afiliado, Prestador prestador, LocalDate fecha){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE o.idAfiliado = " + afiliado.getId() + " AND h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + "';";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesPrestador(Prestador prestador){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId();
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesPrestadorFecha(Prestador prestador, LocalDate fecha){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.fechaAtencion = '" + fecha + "';";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesAfiliadoPrestador(Afiliado afiliado, Prestador prestador){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT o.* FROM ordenes o JOIN horarios h ON o.idHorario = h.id WHERE h.idPrestador = " + prestador.getId() + " AND o.idAfiliado = " + afiliado.getId() + ";";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesAfiliado(Afiliado afiliado){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId();
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesAfiliadoFecha(Afiliado afiliado, LocalDate fecha){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT * FROM ordenes WHERE idAfiliado = " + afiliado.getId() + " AND fechaAtencion = '" + fecha + "';";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
+    public ArrayList<Orden> obtenerOrdenesFecha(LocalDate fecha){
+        ArrayList<Orden> resultados = new ArrayList<>();
+        AfiliadoData ad = new AfiliadoData();
+        HorarioData hd = new HorarioData();
+
+        try {
+            String sql = "SELECT * FROM ordenes WHERE fechaAtencion = '" + fecha + "';";
+            Statement s = Conexion.get().createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                
+                Afiliado a = ad.obtenerAfiliado(rs.getInt("idAfiliado"));
+                Horario h = hd.obtenerHorario(rs.getInt("idHorario"));
+                LocalDate fAtencion = rs.getDate("fechaAtencion").toLocalDate();
+                LocalDate fCreacion = rs.getDate("fechaCreacion").toLocalDate();
+                
+                resultados.add(new Orden(rs.getInt("id"), a, h, fAtencion, fCreacion, rs.getBoolean("efectivo"), rs.getBoolean("activa")));
+            }
+            s.close();
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ordenes:" + e.getMessage());
+        }
+
+        return resultados;
+    }
+    
     public void bajaOrden(int id) {
         try {
             String sql = "DELETE FROM ordenes WHERE id = " + id + ";";
