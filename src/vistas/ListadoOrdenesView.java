@@ -34,6 +34,7 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
         armarEncabezados();
         llenarTabla();
         jCheckBoxFiltroFecha.setSelected(true);
+        jCheckBoxFiltroFecha.setSelected(false);
     }
 
     /**
@@ -331,8 +332,12 @@ public class ListadoOrdenesView extends javax.swing.JInternalFrame{
             }
         }
         
-        for (Orden o : tablaMostrada)
-            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), o.getFechaAtencion().toString(), o.getHorario().toString(), o.isEfectivo() ? "Efectivo" : "Contado", o.isActiva() ? "Si" : "No"});
+        for (Orden o : tablaMostrada){
+            String efectivo = o.isEfectivo() ? "Efectivo" : "Contado";
+            String activa = o.isActiva() ? "Si" : "No";
+            tableModel.addRow(new Object[]{o.getAfiliado().getNombre(), o.getHorario().getPrestador(), o.getFechaAtencion().toString(), o.getHorario().toString(), efectivo, activa});
+            
+        }
     }
     
     private void llenarDesplegableAfiliados(){
