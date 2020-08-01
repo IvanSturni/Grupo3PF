@@ -1,9 +1,12 @@
 package grupo3pf;
 
 import java.time.*;
+import java.sql.*;
 import entidades.*;
 import modelos.*;
 import java.util.*;
+import vistas.*;
+import grupo3pf.*;
 
 public class Grupo3PF {
 
@@ -16,10 +19,67 @@ public class Grupo3PF {
     private static final EspecialidadData ed = new EspecialidadData();
 
     public static void main(String[] args) {
-        crearDatosPrueba();
+       Menu.main(args);
     }
 
-    private static void crearDatosPrueba() {
+    public static void borrarBaseDeDatos() {
+        try {
+            String sql = "DELETE FROM ordenes;";
+            Statement s = Conexion.get().createStatement();
+            s.executeQuery(sql);
+            
+            s.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al borrar la tabla ordenes: "+ e.getMessage());
+        }
+        
+        try {
+            String sql = "DELETE FROM horarios;";
+            Statement s = Conexion.get().createStatement();
+            s.executeQuery(sql);
+            
+            s.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al borrar la tabla horarios: "+ e.getMessage());
+        }
+        
+        try {
+            String sql = "DELETE FROM prestadores;";
+            Statement s = Conexion.get().createStatement();
+            s.executeQuery(sql);
+            
+            s.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al borrar la tabla prestadores: "+ e.getMessage());
+        }
+        
+        try {
+            String sql = "DELETE FROM especialidades;";
+            Statement s = Conexion.get().createStatement();
+            s.executeQuery(sql);
+            
+            s.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al borrar la tabla especialidades: "+ e.getMessage());
+        }
+        
+        try {
+            String sql = "DELETE FROM afiliados;";
+            Statement s = Conexion.get().createStatement();
+            s.executeQuery(sql);
+            
+            s.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error al borrar la tabla afiliados: "+ e.getMessage());
+        }
+    }
+    
+    public static void crearDatosPrueba() {
         
         Afiliado a1 = ad.altaAfiliado(new Afiliado(41293222, "Jose", true));
         Afiliado a2 = ad.altaAfiliado(new Afiliado(57134993, "Cristina", true));
@@ -77,5 +137,6 @@ public class Grupo3PF {
         Orden o8 = od.altaOrden(new Orden(a8,h5,LocalDate.of(2020, Month.MAY, 2), LocalDate.of(2020, Month.MAY, 2),true,true));
         Orden o9 = od.altaOrden(new Orden(a9,h6,LocalDate.of(2020, Month.APRIL, 22), LocalDate.of(2020, Month.APRIL, 22),true,false));*/
     }
+    
 
 }
